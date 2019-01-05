@@ -1,4 +1,4 @@
-package ru.vladlin.itodolist;
+package ru.vladlin.itodolist.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,23 +9,27 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ru.vladlin.itodolist.R;
+
+import ru.vladlin.itodolist.ui.main.MainFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.main_activity);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        // view main fragment
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, MainFragment.newInstance())
+                    .commitNow();
+        }
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+
     }
 
     @Override
