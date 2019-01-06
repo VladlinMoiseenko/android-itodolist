@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">iTodoList</string>
-    <string name="action_main">Main</string>
-    <string name="action_second">Second</string>
+    <string name="app_name">itodolist</string>
 </resources>

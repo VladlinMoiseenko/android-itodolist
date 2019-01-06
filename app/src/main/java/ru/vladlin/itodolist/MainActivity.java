@@ -1,4 +1,4 @@
-package ru.vladlin.app0;
+package ru.vladlin.itodolist;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
