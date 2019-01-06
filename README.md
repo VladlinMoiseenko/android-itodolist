@@ -3,15 +3,13 @@
 
 
 
-
-
 td
 ===
 
 
-перенести MoviesAdapter
+перенести login
 
-main, login перенести в ui
+
 
 Скопировать решение MVP из проекта app1 
 

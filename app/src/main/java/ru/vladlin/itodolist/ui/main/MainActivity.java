@@ -1,4 +1,4 @@
-package ru.vladlin.itodolist.main;
+package ru.vladlin.itodolist.ui.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import ru.vladlin.itodolist.R;
 
 import ru.vladlin.itodolist.adapters.MoviesAdapter;
 import ru.vladlin.itodolist.models.HubModel;
+
 
 public class MainActivity extends AppCompatActivity implements MainView {
     @BindView(R.id.rvMovies)
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void displayMovies(HubModel movieResponse) {
         if(movieResponse!=null) {
             Log.d(TAG,movieResponse.getBlog());
-            adapter = new MoviesAdapter(movieResponse, MainActivity.this);
+            adapter = new MoviesAdapter(movieResponse, ru.vladlin.itodolist.ui.main.MainActivity.this);
             rvMovies.setAdapter(adapter);
         }else{
             Log.d(TAG,"Movies response null");

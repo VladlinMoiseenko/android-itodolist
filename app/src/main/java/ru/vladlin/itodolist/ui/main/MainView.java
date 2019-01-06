@@ -1,4 +1,4 @@
-package ru.vladlin.itodolist.main;
+package ru.vladlin.itodolist.ui.main;
 
 import ru.vladlin.itodolist.models.HubModel;
 

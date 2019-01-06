@@ -1,4 +1,4 @@
-package ru.vladlin.itodolist.main;
+package ru.vladlin.itodolist.ui.main;
 
 import android.util.Log;
 
@@ -29,7 +29,7 @@ class MainPresenter {
             mainView.showProgress();
         }
 
-       // findItemsInteractor.findItems(this::onFinished);
+        // findItemsInteractor.findItems(this::onFinished);
         getObservable().subscribeWith(getObserver());
 
     }
@@ -54,7 +54,7 @@ class MainPresenter {
             public void onError(@NonNull Throwable e) {
                 Log.d(TAG,"Error"+e);
                 e.printStackTrace();
-               // mvi.displayError("Error fetching Movie Data");
+                // mvi.displayError("Error fetching Movie Data");
             }
 
             @Override
