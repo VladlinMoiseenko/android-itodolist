@@ -1,4 +1,4 @@
-package ru.vladlin.itodolist.ui.main;
+package ru.vladlin.itodolist.ui.test;
 
 import android.util.Log;
 
@@ -9,18 +9,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import ru.vladlin.itodolist.models.HubModel;
 import ru.vladlin.itodolist.net.NetClient;
 import ru.vladlin.itodolist.net.NetInterface;
 
+import ru.vladlin.itodolist.ui.test.TestView;
 
-class MainPresenter {
+
+import ru.vladlin.itodolist.models.ApiModel;
+
+class TestPresenter {
 
     private String TAG = "MainPresenter";
 
-    private MainView mainView;
+    private TestView mainView;
 
-    MainPresenter(MainView mainView) {
+    TestPresenter(TestView mainView) {
         this.mainView = mainView;
     }
 
@@ -29,23 +32,22 @@ class MainPresenter {
             mainView.showProgress();
         }
 
-        // findItemsInteractor.findItems(this::onFinished);
-       //getObservable().subscribeWith(getObserver());
+        getObservable().subscribeWith(getObserver());
 
     }
 
-//    public Observable<HubModel> getObservable(){
-//        return NetClient.getRetrofit().create(NetInterface.class)
-//                .getMock()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread());
-//    }
+    public Observable<ApiModel> getObservable(){
+        return NetClient.getRetrofit().create(NetInterface.class)
+                .getMock()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
-    public DisposableObserver<HubModel> getObserver(){
-        return new DisposableObserver<HubModel>() {
+    public DisposableObserver<ApiModel> getObserver(){
+        return new DisposableObserver<ApiModel>() {
 
             @Override
-            public void onNext(@NonNull HubModel movieResponse) {
+            public void onNext(@NonNull ApiModel movieResponse) {
                 //Log.d(TAG,"OnNext"+movieResponse.getTotalResults());
                 mainView.displayMovies(movieResponse);
             }
@@ -54,13 +56,12 @@ class MainPresenter {
             public void onError(@NonNull Throwable e) {
                 Log.d(TAG,"Error"+e);
                 e.printStackTrace();
-                // mvi.displayError("Error fetching Movie Data");
+                //mainView.displayError("Error fetching Movie Data");
             }
 
             @Override
             public void onComplete() {
                 Log.d(TAG,"Completed");
-                //mvi.hideProgressBar();
                 mainView.hideProgress();
             }
         };
@@ -86,7 +87,7 @@ class MainPresenter {
         }
     }
 
-    public MainView getMainView() {
+    public TestView getMainView() {
         return mainView;
     }
 }
