@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/login_name" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,12 +21,17 @@
         </activity>
         <activity
             android:name=".ui.main.MainActivity"
-            android:label="@string/registration_name"
+            android:label="@string/app_name"
             >
         </activity>
         <activity
             android:name=".ui.registration.RegistrationActivity"
-            android:label="@string/app_name"
+            android:label="@string/registration_name"
+            >
+        </activity>
+        <activity
+            android:name=".ui.test.TestActivity"
+            android:label="Test"
             >
         </activity>
     </application>

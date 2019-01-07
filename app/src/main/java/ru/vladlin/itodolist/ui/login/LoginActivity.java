@@ -9,6 +9,8 @@ import android.widget.ProgressBar;
 
 import ru.vladlin.itodolist.R;
 import ru.vladlin.itodolist.ui.main.MainActivity;
+import ru.vladlin.itodolist.ui.registration.RegistrationActivity;
+import ru.vladlin.itodolist.ui.test.TestActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -25,7 +27,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         progressBar = findViewById(R.id.progress);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+
         findViewById(R.id.button).setOnClickListener(v -> validateCredentials());
+        findViewById(R.id.btn_registration).setOnClickListener(v -> navigateToRegistration());
 
         presenter = new LoginPresenter(this, new LoginInteractor());
     }
@@ -58,7 +62,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void navigateToHome() {
-        startActivity(new Intent(this, MainActivity.class));
+        //startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, TestActivity.class));
+        finish();
+    }
+
+    @Override
+    public void navigateToRegistration() {
+        startActivity(new Intent(this, RegistrationActivity.class));
         finish();
     }
 

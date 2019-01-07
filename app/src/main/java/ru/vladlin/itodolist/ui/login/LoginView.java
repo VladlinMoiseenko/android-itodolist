@@ -1,6 +1,7 @@
 package ru.vladlin.itodolist.ui.login;
 
 public interface LoginView {
+
     void showProgress();
 
     void hideProgress();
@@ -10,4 +11,6 @@ public interface LoginView {
     void setPasswordError();
 
     void navigateToHome();
+
+    void navigateToRegistration();
 }
