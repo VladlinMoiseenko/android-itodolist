@@ -9,9 +9,9 @@ public class NetClient {
 
     public static Retrofit retrofit;
 
-    public void NetworkClient(){
-
-    }
+//    public void NetworkClient(){
+//
+//    }
 
     public static Retrofit getRetrofit(){
 
@@ -20,7 +20,6 @@ public class NetClient {
             OkHttpClient okHttpClient = builder.build();
 
             retrofit = new Retrofit.Builder()
-                        //.baseUrl("https://api.github.com/")
                         .baseUrl("http://apitdlist.dev.vladlin.ru/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

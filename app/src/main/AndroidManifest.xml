@@ -29,10 +29,6 @@
             android:label="@string/registration_name"
             >
         </activity>
-        <activity
-            android:name=".ui.test.TestActivity"
-            android:label="Test">
-        </activity>
     </application>
 
 </manifest>

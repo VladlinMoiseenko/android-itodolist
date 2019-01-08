@@ -1,6 +1,6 @@
 package ru.vladlin.itodolist.ui.main;
 
-import ru.vladlin.itodolist.models.HubModel;
+import ru.vladlin.itodolist.models.TasksModel;
 
 public interface MainView {
 
@@ -10,5 +10,6 @@ public interface MainView {
 
     void showMessage(String message);
 
-    void displayMovies(HubModel movieResponse);
+    void displayTasks(TasksModel movieResponse);
+
 }

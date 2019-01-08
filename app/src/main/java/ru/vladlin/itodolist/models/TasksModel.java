@@ -4,14 +4,14 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ApiModel {
+public class TasksModel {
 
     @SerializedName("status")
     @Expose
     private Integer status;
     @SerializedName("data")
     @Expose
-    private List<DatumModel> data = null;
+    private List<TaskModel> data = null;
     @SerializedName("page")
     @Expose
     private Integer page;
@@ -30,11 +30,11 @@ public class ApiModel {
         this.status = status;
     }
 
-    public List<DatumModel> getData() {
+    public List<TaskModel> getData() {
         return data;
     }
 
-    public void setData(List<DatumModel> data) {
+    public void setData(List<TaskModel> data) {
         this.data = data;
     }
 

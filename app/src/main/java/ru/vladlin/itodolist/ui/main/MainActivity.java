@@ -16,21 +16,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import ru.vladlin.itodolist.R;
-
-import ru.vladlin.itodolist.adapters.MoviesAdapter;
-import ru.vladlin.itodolist.models.HubModel;
-
+import ru.vladlin.itodolist.adapters.TasksAdapter;
+import ru.vladlin.itodolist.models.TasksModel;
 
 public class MainActivity extends AppCompatActivity implements MainView {
-    @BindView(R.id.rvMovies)
-    RecyclerView rvMovies;
-    private String TAG = "FOFO";
+
+    private String TAG = "MainActivity";
+
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
 
-    private RecyclerView recyclerView;
+
     private ProgressBar progressBar;
     private MainPresenter presenter;
 
+    //вызывается при первом создании Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         ButterKnife.bind(this);
 
-        //recyclerView = findViewById(R.id.list);
         progressBar = findViewById(R.id.progress);
         presenter = new MainPresenter(this);
     }
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onResume();
         presenter.onResume();
 
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         }
     }
 
+    //вызывается перед тем, как Activity будет уничтожено
     @Override
     protected void onDestroy() {
         presenter.onDestroy();
@@ -76,13 +77,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
-        //recyclerView.setVisibility(View.INVISIBLE);
+        recyclerView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.INVISIBLE);
-        //recyclerView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -91,14 +92,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void displayMovies(HubModel movieResponse) {
+    public void displayTasks(TasksModel movieResponse) {
         if(movieResponse!=null) {
-            Log.d(TAG,movieResponse.getBlog());
-            adapter = new MoviesAdapter(movieResponse, ru.vladlin.itodolist.ui.main.MainActivity.this);
-            rvMovies.setAdapter(adapter);
+            //Log.d(TAG,movieResponse.getStatus().toString());
+            adapter = new TasksAdapter(movieResponse.getData(), ru.vladlin.itodolist.ui.main.MainActivity.this);
+            recyclerView.setAdapter(adapter);
         }else{
-            Log.d(TAG,"Movies response null");
+            Log.d(TAG,"Data response null");
         }
     }
 
+
 }
+

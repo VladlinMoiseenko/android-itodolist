@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 import ru.vladlin.itodolist.R;
 import ru.vladlin.itodolist.ui.main.MainActivity;
 import ru.vladlin.itodolist.ui.registration.RegistrationActivity;
-import ru.vladlin.itodolist.ui.test.TestActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
 
@@ -62,8 +61,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void navigateToHome() {
-        //startActivity(new Intent(this, MainActivity.class));
-        startActivity(new Intent(this, TestActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
+        //startActivity(new Intent(this, TestActivity.class));
         finish();
     }
 
