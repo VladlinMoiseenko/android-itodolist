@@ -63,6 +63,7 @@ class MainPresenter {
 
     void onDestroy() {
         mainView = null;
+        getObserver().dispose();
     }
 
     public MainView getMainView() {

@@ -3,30 +3,63 @@
 
 
 
+android как хранить токен
+По заявлению Android хранить в Shared Preferences с private mode безопасно. 
 
-Переименовать 
+http://developer.alexanderklimov.ru/android/preference.php
+http://forum.alexanderklimov.ru/viewtopic.php?id=27
 
-Tasks 
 
-
-в гит
 
 td
 ===
+Пока на апи http://apitdlist.dev.vladlin.ru/v1/task 
 
 
-делать красиво...
+запрос отправляется 
+строка в БД создается AuthorizationCode
+не могу получить результат
+попробовать поменять модель на AuthorizeModel
+получилось
 
-сделать красиво лого и фавикон на сайт itodolist
 
-пора работать с настоящим апи, сначала http://apitdlist.dev.vladlin.ru/v1/task 
 
-android где хранить токен
-По заявлению Android хранить в Shared Preferences с private mode безопасно. 
+
+глянуть здесь https://futurestud.io/tutorials/retrofit-send-objects-in-request-body
+
+
+Сделать авторизацию в активити login
+с известными данными demo 123456
+POST http://apitdlist.dev.vladlin.ru/v1/authorize
+в боди
+  "username":"demo",
+  "password":"123456"
+
+
+Проверисть с данными:
+{
+  "username":"demo12",
+  "password":"demo12"
+}
+
+Response
+{
+    "status": 1,
+    "data": {
+        "authorization_code": "d02766737a9b4135327d79c069767102",
+        "expires_at": 1543477551
+    }
+}
+
+
+переименовать movieResponse
+
+@GET("user")
+Call<User> getUser(@Header("Authorization") String authorization)
+
 
 При реализации Редактирования Удаления
 см. в androidmvp / MainPresenter / void onItemClicked
-
 
 Не делать сильно сложно
 написать что это минимально жизнеспособный продукт 
@@ -35,12 +68,16 @@ android где хранить токен
 -сохранение состояния при изменении ориентации
 -кэширование данных в локальное хранилище/бд
 
+Как делать на самом гугле? апи? или локальной БД?
+-через апи, так как я в начале подписался что клиент будет на андроиде
+
 Перед выкладыванием на гитхаб убрать логи, искать по "TAG"
 main и test удалить 
+td
 
-0108
-===
-удалить все сделанное для HubModel
-Переделать main, он будет показывать все таски
-удалить test
-Жизненный цикл активити https://startandroid.ru/ru/uroki/vse-uroki-spiskom/60-urok-23-activity-lifecycle-v-kakih-sostojanijah-mozhet-byt-activity.html
+
+d
+---
+сделать красиво лого на телефон и фавикон на сайт itodolist
+Создаю модели для authorize
+Удаляю ui/login/LoginInteractor

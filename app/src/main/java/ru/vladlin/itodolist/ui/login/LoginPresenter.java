@@ -1,13 +1,26 @@
 package ru.vladlin.itodolist.ui.login;
 
-public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
+import android.util.Log;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+
+import ru.vladlin.itodolist.models.AuthorizeModel;
+import ru.vladlin.itodolist.models.Task;
+import ru.vladlin.itodolist.net.NetClient;
+import ru.vladlin.itodolist.net.NetInterface;
+
+public class LoginPresenter {
+
+    private String TAG = "FOLogin";
 
     private LoginView loginView;
-    private LoginInteractor loginInteractor;
 
-    LoginPresenter(LoginView loginView, LoginInteractor loginInteractor) {
+    LoginPresenter(LoginView loginView) {
         this.loginView = loginView;
-        this.loginInteractor = loginInteractor;
     }
 
     public void validateCredentials(String username, String password) {
@@ -15,33 +28,71 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
             loginView.showProgress();
         }
 
-        loginInteractor.login(username, password, this);
+        getObservable().subscribeWith(getObserver());
+
     }
+
+    public Observable<AuthorizeModel> getObservable(){
+
+        Task task = new Task("demo", "123456");
+
+        return NetClient.getRetrofit().create(NetInterface.class)
+                .authorize(task)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public DisposableObserver<AuthorizeModel> getObserver(){
+        return new DisposableObserver<AuthorizeModel>() {
+
+            @Override
+            public void onNext(@NonNull AuthorizeModel response) {
+                Log.d(TAG,"response:"+response.getData().getAuthorizationCode());
+                //mainView.displayTasks(movieResponse);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG,"Error"+e);
+                e.printStackTrace();
+                //loginView.showMessage("Error retrieving data");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG,"Completed");
+                loginView.hideProgress();
+                loginView.navigateToHome();
+            }
+        };
+    }
+
 
     public void onDestroy() {
         loginView = null;
+        getObserver().dispose();
     }
 
-    @Override
-    public void onUsernameError() {
-        if (loginView != null) {
-            loginView.setUsernameError();
-            loginView.hideProgress();
-        }
-    }
+//    @Override
+//    public void onUsernameError() {
+//        if (loginView != null) {
+//            loginView.setUsernameError();
+//            loginView.hideProgress();
+//        }
+//    }
+//
+//    @Override
+//    public void onPasswordError() {
+//        if (loginView != null) {
+//            loginView.setPasswordError();
+//            loginView.hideProgress();
+//        }
+//    }
 
-    @Override
-    public void onPasswordError() {
-        if (loginView != null) {
-            loginView.setPasswordError();
-            loginView.hideProgress();
-        }
-    }
-
-    @Override
-    public void onSuccess() {
-        if (loginView != null) {
-            loginView.navigateToHome();
-        }
-    }
+//    @Override
+//    public void onSuccess() {
+//        if (loginView != null) {
+//            loginView.navigateToHome();
+//        }
+//    }
 }

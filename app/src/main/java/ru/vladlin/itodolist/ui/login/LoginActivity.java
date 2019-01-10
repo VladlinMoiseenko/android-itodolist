@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         findViewById(R.id.button).setOnClickListener(v -> validateCredentials());
         findViewById(R.id.btn_registration).setOnClickListener(v -> navigateToRegistration());
 
-        presenter = new LoginPresenter(this, new LoginInteractor());
+        presenter = new LoginPresenter(this);
     }
 
     @Override
@@ -62,7 +62,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void navigateToHome() {
         startActivity(new Intent(this, MainActivity.class));
-        //startActivity(new Intent(this, TestActivity.class));
         finish();
     }
 
