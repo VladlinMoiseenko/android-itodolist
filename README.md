@@ -3,26 +3,18 @@
 
 
 
-
-
-
-Получить токен
-
-
-
 td
 ===
 
+Реализовать кнопку выход с очисткой настройки accessToken и дерганьем апи GET /v1/logout
 
-Проверисть с данными:
-{
-  "username":"demo12",
-  "password":"demo12"
-}
+Реализзовать проверку полей "username" и "password" 
 
 
+Проверисть с другими данными: "demo12" "demo12"
 
-Пока на апи http://apitdlist.dev.vladlin.ru/v1/task 
+
+Тестовый апи http://apitdlist.dev.vladlin.ru/v1/task 
 Переключить на основной апи
 
 Иcпользовать токен  getTask(@Header("Authorization") String authorization)
@@ -54,4 +46,6 @@ Retrofit — Send Objects in Request Body https://futurestud.io/tutorials/retrof
 commit 20190109_1843
 Сохраняем настройки в Shared Preferences с private mode http://developer.alexanderklimov.ru/android/preference.php
 Сделать модели для AccesstokenModel
-
+commit 20190109_2123
+Получить токен после авторизации и сохранить
+При запуске программв проверять, есть ли accessToken

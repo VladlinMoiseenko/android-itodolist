@@ -8,7 +8,9 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
+import ru.vladlin.itodolist.models.AccesstokenModel;
 import ru.vladlin.itodolist.models.AuthorizeModel;
+import ru.vladlin.itodolist.models.Token;
 import ru.vladlin.itodolist.models.User;
 import ru.vladlin.itodolist.net.NetClient;
 import ru.vladlin.itodolist.net.NetInterface;
@@ -47,31 +49,73 @@ public class LoginPresenter {
 
             @Override
             public void onNext(@NonNull AuthorizeModel response) {
-                Log.d(TAG,"response:"+response.getData().getAuthorizationCode());
-                loginView.saveAuthorizationCode(response.getData().getAuthorizationCode());
-
+                String authorizationCode = response.getData().getAuthorizationCode();
+                //Log.d(TAG,"response:"+authorizationCode);
+                getToken(authorizationCode);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
                 Log.d(TAG,"Error"+e);
                 e.printStackTrace();
-                //loginView.showMessage("Error retrieving data");
             }
 
             @Override
             public void onComplete() {
                 Log.d(TAG,"Completed");
                 loginView.hideProgress();
-                loginView.navigateToHome();
             }
         };
     }
 
 
+    //////////////////////
+
+    private void getToken(String authorizationCode) {
+
+        getObservableToken(authorizationCode).subscribeWith(getObserverToken());
+
+    }
+
+    public Observable<AccesstokenModel> getObservableToken(String authorizationCode){
+
+        Token token = new Token(authorizationCode);
+
+        return NetClient.getRetrofit().create(NetInterface.class)
+                .accesstoken(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public DisposableObserver<AccesstokenModel> getObserverToken(){
+        return new DisposableObserver<AccesstokenModel>() {
+
+            @Override
+            public void onNext(@NonNull AccesstokenModel response) {
+                String accessToken = response.getData().getAccessToken();
+                Log.d(TAG,"accessToken:"+accessToken);
+                loginView.saveAccessToken(accessToken);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG,"Error"+e);
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG,"Completed");
+                loginView.hideProgress();
+                loginView.navigateToMain();
+            }
+        };
+    }
+
     public void onDestroy() {
         loginView = null;
         getObserver().dispose();
+        getObserverToken().dispose();
     }
 
 //    @Override
@@ -93,7 +137,7 @@ public class LoginPresenter {
 //    @Override
 //    public void onSuccess() {
 //        if (loginView != null) {
-//            loginView.navigateToHome();
+//            loginView.navigateToMain();
 //        }
 //    }
 }

@@ -22,11 +22,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private LoginPresenter presenter;
 
     public static final String APP_PREFERENCES = "mainSettings";
-    public static final String APP_PREFERENCES_AUTHORISATION_CODE = "AuthorizationCode";
+    public static final String APP_PREFERENCES_ACCESS_TOKEN = "AccessToken";
     private SharedPreferences mSettings;
 
     private TextView mInfoTextView;
-    private String mAuthorizationCode;
+    private String mAccessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +51,23 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     protected void onResume() {
         super.onResume();
 
-        if (mSettings.contains(APP_PREFERENCES_AUTHORISATION_CODE)) {
-            mAuthorizationCode = mSettings.getString(APP_PREFERENCES_AUTHORISATION_CODE, "AuthorizationCode");
-            mInfoTextView.setText(mAuthorizationCode);
+        if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
+            mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
+            mInfoTextView.setText(mAccessToken);
+
+            //токен есть значит можно пропустить логин
+            navigateToMain();
+
         }
     }
 
     @Override
-    public void saveAuthorizationCode(String authorizationCode) {
-        if(authorizationCode!=null) {
+    public void saveAccessToken(String accessToken) {
+        if(accessToken!=null) {
 
             SharedPreferences.Editor editor = mSettings.edit();
-            editor.putString(APP_PREFERENCES_AUTHORISATION_CODE, authorizationCode);
+            editor.putString(APP_PREFERENCES_ACCESS_TOKEN, accessToken);
             editor.apply();
-
 
         }
     }
@@ -96,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void navigateToHome() {
+    public void navigateToMain() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

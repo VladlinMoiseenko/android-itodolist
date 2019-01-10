@@ -10,9 +10,9 @@ public interface LoginView {
 
     void setPasswordError();
 
-    void navigateToHome();
+    void navigateToMain();
 
     void navigateToRegistration();
 
-    void saveAuthorizationCode(String authorizationCode);
+    void saveAccessToken(String accessToken);
 }
