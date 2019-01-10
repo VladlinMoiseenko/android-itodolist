@@ -3,37 +3,15 @@
 
 
 
-android как хранить токен
-По заявлению Android хранить в Shared Preferences с private mode безопасно. 
 
-http://developer.alexanderklimov.ru/android/preference.php
-http://forum.alexanderklimov.ru/viewtopic.php?id=27
+
+
+Получить токен
 
 
 
 td
 ===
-Пока на апи http://apitdlist.dev.vladlin.ru/v1/task 
-
-
-запрос отправляется 
-строка в БД создается AuthorizationCode
-не могу получить результат
-попробовать поменять модель на AuthorizeModel
-получилось
-
-
-
-
-глянуть здесь https://futurestud.io/tutorials/retrofit-send-objects-in-request-body
-
-
-Сделать авторизацию в активити login
-с известными данными demo 123456
-POST http://apitdlist.dev.vladlin.ru/v1/authorize
-в боди
-  "username":"demo",
-  "password":"123456"
 
 
 Проверисть с данными:
@@ -42,20 +20,12 @@ POST http://apitdlist.dev.vladlin.ru/v1/authorize
   "password":"demo12"
 }
 
-Response
-{
-    "status": 1,
-    "data": {
-        "authorization_code": "d02766737a9b4135327d79c069767102",
-        "expires_at": 1543477551
-    }
-}
 
 
-переименовать movieResponse
+Пока на апи http://apitdlist.dev.vladlin.ru/v1/task 
+Переключить на основной апи
 
-@GET("user")
-Call<User> getUser(@Header("Authorization") String authorization)
+Иcпользовать токен  getTask(@Header("Authorization") String authorization)
 
 
 При реализации Редактирования Удаления
@@ -70,14 +40,18 @@ Call<User> getUser(@Header("Authorization") String authorization)
 
 Как делать на самом гугле? апи? или локальной БД?
 -через апи, так как я в начале подписался что клиент будет на андроиде
+-удалить регистрацию
 
 Перед выкладыванием на гитхаб убрать логи, искать по "TAG"
-main и test удалить 
-td
 
 
 d
 ---
 сделать красиво лого на телефон и фавикон на сайт itodolist
 Создаю модели для authorize
+Retrofit — Send Objects in Request Body https://futurestud.io/tutorials/retrofit-send-objects-in-request-body
 Удаляю ui/login/LoginInteractor
+commit 20190109_1843
+Сохраняем настройки в Shared Preferences с private mode http://developer.alexanderklimov.ru/android/preference.php
+Сделать модели для AccesstokenModel
+

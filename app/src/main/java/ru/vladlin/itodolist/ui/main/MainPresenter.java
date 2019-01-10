@@ -41,9 +41,9 @@ class MainPresenter {
         return new DisposableObserver<TasksModel>() {
 
             @Override
-            public void onNext(@NonNull TasksModel movieResponse) {
-                //Log.d(TAG,"OnNext"+movieResponse.getTotalResults());
-                mainView.displayTasks(movieResponse);
+            public void onNext(@NonNull TasksModel tasksResponse) {
+                //Log.d(TAG,"OnNext"+tasksResponse.getTotalResults());
+                mainView.displayTasks(tasksResponse);
             }
 
             @Override

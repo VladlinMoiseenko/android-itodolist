@@ -1,11 +1,14 @@
 package ru.vladlin.itodolist.ui.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import ru.vladlin.itodolist.R;
 import ru.vladlin.itodolist.ui.main.MainActivity;
@@ -18,6 +21,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private EditText password;
     private LoginPresenter presenter;
 
+    public static final String APP_PREFERENCES = "mainSettings";
+    public static final String APP_PREFERENCES_AUTHORISATION_CODE = "AuthorizationCode";
+    private SharedPreferences mSettings;
+
+    private TextView mInfoTextView;
+    private String mAuthorizationCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +37,36 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
 
-        findViewById(R.id.button).setOnClickListener(v -> validateCredentials());
+        findViewById(R.id.btn_login).setOnClickListener(v -> validateCredentials());
         findViewById(R.id.btn_registration).setOnClickListener(v -> navigateToRegistration());
 
         presenter = new LoginPresenter(this);
+
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        mInfoTextView = (TextView) findViewById(R.id.textViewInfo);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mSettings.contains(APP_PREFERENCES_AUTHORISATION_CODE)) {
+            mAuthorizationCode = mSettings.getString(APP_PREFERENCES_AUTHORISATION_CODE, "AuthorizationCode");
+            mInfoTextView.setText(mAuthorizationCode);
+        }
+    }
+
+    @Override
+    public void saveAuthorizationCode(String authorizationCode) {
+        if(authorizationCode!=null) {
+
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putString(APP_PREFERENCES_AUTHORISATION_CODE, authorizationCode);
+            editor.apply();
+
+
+        }
     }
 
     @Override
@@ -74,4 +110,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private void validateCredentials() {
         presenter.validateCredentials(username.getText().toString(), password.getText().toString());
     }
+
+
 }

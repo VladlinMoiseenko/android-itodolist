@@ -92,10 +92,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void displayTasks(TasksModel movieResponse) {
-        if(movieResponse!=null) {
-            //Log.d(TAG,movieResponse.getStatus().toString());
-            adapter = new TasksAdapter(movieResponse.getData(), ru.vladlin.itodolist.ui.main.MainActivity.this);
+    public void displayTasks(TasksModel tasksResponse) {
+        if(tasksResponse!=null) {
+            //Log.d(TAG,tasksResponse.getStatus().toString());
+            adapter = new TasksAdapter(tasksResponse.getData(), ru.vladlin.itodolist.ui.main.MainActivity.this);
             recyclerView.setAdapter(adapter);
         }else{
             Log.d(TAG,"Data response null");

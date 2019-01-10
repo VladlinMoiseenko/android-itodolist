@@ -13,4 +13,6 @@ public interface LoginView {
     void navigateToHome();
 
     void navigateToRegistration();
+
+    void saveAuthorizationCode(String authorizationCode);
 }

@@ -10,6 +10,6 @@ public interface MainView {
 
     void showMessage(String message);
 
-    void displayTasks(TasksModel movieResponse);
+    void displayTasks(TasksModel tasksResponse);
 
 }

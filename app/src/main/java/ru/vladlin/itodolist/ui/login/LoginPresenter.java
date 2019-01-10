@@ -9,19 +9,19 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import ru.vladlin.itodolist.models.AuthorizeModel;
-import ru.vladlin.itodolist.models.Task;
+import ru.vladlin.itodolist.models.User;
 import ru.vladlin.itodolist.net.NetClient;
 import ru.vladlin.itodolist.net.NetInterface;
 
 public class LoginPresenter {
 
     private String TAG = "FOLogin";
-
     private LoginView loginView;
 
     LoginPresenter(LoginView loginView) {
         this.loginView = loginView;
     }
+
 
     public void validateCredentials(String username, String password) {
         if (loginView != null) {
@@ -34,10 +34,10 @@ public class LoginPresenter {
 
     public Observable<AuthorizeModel> getObservable(){
 
-        Task task = new Task("demo", "123456");
+        User user = new User("demo", "123456");
 
         return NetClient.getRetrofit().create(NetInterface.class)
-                .authorize(task)
+                .authorize(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -48,7 +48,8 @@ public class LoginPresenter {
             @Override
             public void onNext(@NonNull AuthorizeModel response) {
                 Log.d(TAG,"response:"+response.getData().getAuthorizationCode());
-                //mainView.displayTasks(movieResponse);
+                loginView.saveAuthorizationCode(response.getData().getAuthorizationCode());
+
             }
 
             @Override
