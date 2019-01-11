@@ -15,4 +15,6 @@ public interface LoginView {
     void navigateToRegistration();
 
     void saveAccessToken(String accessToken);
+
+    void showMessage(String message);
 }

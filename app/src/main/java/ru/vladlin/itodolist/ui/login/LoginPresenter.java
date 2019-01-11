@@ -1,5 +1,7 @@
 package ru.vladlin.itodolist.ui.login;
 
+import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 import io.reactivex.Observable;
@@ -15,13 +17,15 @@ import ru.vladlin.itodolist.models.User;
 import ru.vladlin.itodolist.net.NetClient;
 import ru.vladlin.itodolist.net.NetInterface;
 
-public class LoginPresenter {
+public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
 
-    private String TAG = "FOLogin";
+    private String TAG = "LoginPresenter";
     private LoginView loginView;
+    private LoginInteractor loginInteractor;
 
-    LoginPresenter(LoginView loginView) {
+    LoginPresenter(LoginView loginView, LoginInteractor loginInteractor) {
         this.loginView = loginView;
+        this.loginInteractor = loginInteractor;
     }
 
 
@@ -30,13 +34,38 @@ public class LoginPresenter {
             loginView.showProgress();
         }
 
-        getObservable().subscribeWith(getObserver());
+        loginInteractor.login(username, password, this);
 
     }
 
-    public Observable<AuthorizeModel> getObservable(){
+    @Override
+    public void onUsernameError() {
+        if (loginView != null) {
+            loginView.setUsernameError();
+            loginView.hideProgress();
+        }
+    }
 
-        User user = new User("demo", "123456");
+    @Override
+    public void onPasswordError() {
+        if (loginView != null) {
+            loginView.setPasswordError();
+            loginView.hideProgress();
+        }
+    }
+
+    @Override
+    public void onSuccess(String username, String password) {
+        if (loginView != null) {
+            //loginView.navigateToHome();
+            getObservable(username, password).subscribeWith(getObserver());
+        }
+    }
+
+
+    public Observable<AuthorizeModel> getObservable(String username, String password){
+
+        User user = new User(username, password);
 
         return NetClient.getRetrofit().create(NetInterface.class)
                 .authorize(user)
@@ -58,6 +87,8 @@ public class LoginPresenter {
             public void onError(@NonNull Throwable e) {
                 Log.d(TAG,"Error"+e);
                 e.printStackTrace();
+                loginView.hideProgress();
+                loginView.showMessage("Error retrieving data");
             }
 
             @Override
@@ -115,26 +146,4 @@ public class LoginPresenter {
         getObserverToken().dispose();
     }
 
-//    @Override
-//    public void onUsernameError() {
-//        if (loginView != null) {
-//            loginView.setUsernameError();
-//            loginView.hideProgress();
-//        }
-//    }
-//
-//    @Override
-//    public void onPasswordError() {
-//        if (loginView != null) {
-//            loginView.setPasswordError();
-//            loginView.hideProgress();
-//        }
-//    }
-
-//    @Override
-//    public void onSuccess() {
-//        if (loginView != null) {
-//            loginView.navigateToMain();
-//        }
-//    }
 }

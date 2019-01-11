@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ru.vladlin.itodolist.R;
 import ru.vladlin.itodolist.ui.main.MainActivity;
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         findViewById(R.id.btn_login).setOnClickListener(v -> validateCredentials());
         findViewById(R.id.btn_registration).setOnClickListener(v -> navigateToRegistration());
 
-        presenter = new LoginPresenter(this);
+        presenter = new LoginPresenter(this, new LoginInteractor());
 
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         mInfoTextView = (TextView) findViewById(R.id.textViewInfo);
@@ -55,7 +56,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
             mInfoTextView.setText(mAccessToken);
 
-            //токен есть значит можно пропустить логин
             navigateToMain();
 
         }
@@ -114,5 +114,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         presenter.validateCredentials(username.getText().toString(), password.getText().toString());
     }
 
-
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
 }
