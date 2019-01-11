@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public static final String APP_PREFERENCES_ACCESS_TOKEN = "AccessToken";
     private SharedPreferences mSettings;
     private String mAccessToken;
-    private TextView mInfoTextView;
 
 
     @Override
@@ -44,7 +43,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         presenter = new LoginPresenter(this, new LoginInteractor());
 
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        mInfoTextView = (TextView) findViewById(R.id.textViewInfo);
 
     }
 
@@ -54,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
             mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
-            mInfoTextView.setText(mAccessToken);
 
             navigateToMain();
 

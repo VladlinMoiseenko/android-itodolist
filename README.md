@@ -3,20 +3,19 @@
 
 
 
-убрать лишнее с активити Логин
-Кнопку регистрации сделать ниже
+реализовать Удаление
 
 
 td
 ===
 
-Тестовый апи http://apitdlist.dev.vladlin.ru/v1/task 
-Переключить на основной апи
 
-Иcпользовать токен  getTask(@Header("Authorization") String authorization)
+
 
 При реализации Редактирования Удаления
 см. в androidmvp / MainPresenter / void onItemClicked
+
+Исправить ошибки?
 
 Не делать сильно сложно
 написать что это минимально жизнеспособный продукт 
@@ -30,7 +29,8 @@ td
 -удалить регистрацию
 
 Перед выкладыванием на гитхаб убрать логи, искать по "TAG"
-demo / 123456 / demo12
+Тестовый апи http://apitdlist.dev.vladlin.ru/v1/task  demo / 123456 / demo12
+Основной апи http://apitdlist.vladlin.ru/ demo1212 demo1213
 
 d
 ---
@@ -42,5 +42,7 @@ commit 20190111_1151
 commit 20190111_1728
 User переименовать в Credentials
 Вызов getTasks сделать с токеном
-commit 
+commit 20190111_1744
+убрать лишнее с активити Логин
+Переключить на основной апи http://apitdlist.vladlin.ru/
 commit
