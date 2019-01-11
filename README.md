@@ -1,15 +1,14 @@
 
 
 
-Реализзовать проверку заполнения полей "username" и "password" 
-возвращаю ui/login/LoginInteractor.java
+
+
+убрать лишнее с активити Логин
+Кнопку регистрации сделать ниже
 
 
 td
 ===
-User переименовать в Credentials
-
-Вызов getTasks сделать с токеном
 
 Тестовый апи http://apitdlist.dev.vladlin.ru/v1/task 
 Переключить на основной апи
@@ -38,3 +37,10 @@ d
 создать модель LogoutModel
 Реализовать кнопку выход с очисткой настройки accessToken и дерганьем апи GET /v1/logout
 commit 20190111_1151
+Реализзовать проверку заполнения полей "username" и "password" 
+возвращаю ui/login/LoginInteractor.java
+commit 20190111_1728
+User переименовать в Credentials
+Вызов getTasks сделать с токеном
+commit 
+commit

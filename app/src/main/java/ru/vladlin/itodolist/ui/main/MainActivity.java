@@ -48,13 +48,23 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         progressBar = findViewById(R.id.progress);
         presenter = new MainPresenter(this);
+
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.onResume();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
+            mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
+
+            presenter.onResume(mAccessToken);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
+
     }
 
     @Override
@@ -67,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_logout:
-
-                mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
                 if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
                     mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");

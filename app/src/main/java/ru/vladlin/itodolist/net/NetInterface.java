@@ -11,13 +11,13 @@ import ru.vladlin.itodolist.models.AuthorizeModel;
 import ru.vladlin.itodolist.models.LogoutModel;
 import ru.vladlin.itodolist.models.TasksModel;
 import ru.vladlin.itodolist.models.Token;
-import ru.vladlin.itodolist.models.User;
+import ru.vladlin.itodolist.models.Credentials;
 
 
 public interface NetInterface {
 
     @POST("v1/authorize")
-    Observable<AuthorizeModel> authorize(@Body User user);
+    Observable<AuthorizeModel> authorize(@Body Credentials credentials);
 
     @POST("v1/accesstoken")
     Observable<AccesstokenModel> accesstoken(@Body Token token);
@@ -26,7 +26,7 @@ public interface NetInterface {
     Observable<LogoutModel> logout(@Header("Authorization") String accesstoken);
 
     @GET("v1/task")
-    Observable<TasksModel> getTasks();
+    Observable<TasksModel> getTasks(@Header("Authorization") String accesstoken);
 
 
 }

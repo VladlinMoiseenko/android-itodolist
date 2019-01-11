@@ -1,7 +1,5 @@
 package ru.vladlin.itodolist.ui.login;
 
-import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 
 import io.reactivex.Observable;
@@ -13,7 +11,7 @@ import io.reactivex.schedulers.Schedulers;
 import ru.vladlin.itodolist.models.AccesstokenModel;
 import ru.vladlin.itodolist.models.AuthorizeModel;
 import ru.vladlin.itodolist.models.Token;
-import ru.vladlin.itodolist.models.User;
+import ru.vladlin.itodolist.models.Credentials;
 import ru.vladlin.itodolist.net.NetClient;
 import ru.vladlin.itodolist.net.NetInterface;
 
@@ -65,10 +63,10 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
 
     public Observable<AuthorizeModel> getObservable(String username, String password){
 
-        User user = new User(username, password);
+        Credentials credentials = new Credentials(username, password);
 
         return NetClient.getRetrofit().create(NetInterface.class)
-                .authorize(user)
+                .authorize(credentials)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

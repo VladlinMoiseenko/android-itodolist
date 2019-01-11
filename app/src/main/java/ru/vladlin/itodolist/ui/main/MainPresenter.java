@@ -23,17 +23,17 @@ class MainPresenter {
         this.mainView = mainView;
     }
 
-    void onResume() {
+    void onResume(String accesstoken) {
         if (mainView != null) {
             mainView.showProgress();
         }
 
-        getObservable().subscribeWith(getObserver());
+        getObservable(accesstoken).subscribeWith(getObserver());
     }
 
-    public Observable<TasksModel> getObservable(){
+    public Observable<TasksModel> getObservable(String accesstoken){
         return NetClient.getRetrofit().create(NetInterface.class)
-                .getTasks()
+                .getTasks(accesstoken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
