@@ -24,9 +24,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public static final String APP_PREFERENCES = "mainSettings";
     public static final String APP_PREFERENCES_ACCESS_TOKEN = "AccessToken";
     private SharedPreferences mSettings;
-
-    private TextView mInfoTextView;
     private String mAccessToken;
+    private TextView mInfoTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -68,9 +68,6 @@ public class LoginPresenter {
         };
     }
 
-
-    //////////////////////
-
     private void getToken(String authorizationCode) {
 
         getObservableToken(authorizationCode).subscribeWith(getObserverToken());
