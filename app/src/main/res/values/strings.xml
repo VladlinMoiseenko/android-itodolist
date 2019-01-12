@@ -9,5 +9,7 @@
     <string name="log_in">Login</string>
     <string name="username_error">Username cannot be empty</string>
     <string name="password_error">Password cannot be empty</string>
-    <string name="registration">Registration</string>
+    <string name="registration">Зарегистрироваться</string>
+    <string name="action_edit">Редактировать</string>
+    <string name="action_delete">Удалить</string>
 </resources>

@@ -31,6 +31,12 @@ class MainPresenter {
         getObservable(accesstoken).subscribeWith(getObserver());
     }
 
+    void onItemClicked(String item) {
+        if (mainView != null) {
+            mainView.showMessage(String.format("%s clicked", item));
+        }
+    }
+
     public Observable<TasksModel> getObservable(String accesstoken){
         return NetClient.getRetrofit().create(NetInterface.class)
                 .getTasks(accesstoken)

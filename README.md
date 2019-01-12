@@ -2,20 +2,24 @@
 
 
 
-
 реализовать Удаление
+
+DELETE /v1/task/delete/"id"
+
 
 
 td
 ===
 
+реализовать Создание задачи с большой кнопкой Плюс
 
+реализовать Редактирование 
 
-
-При реализации Редактирования Удаления
-см. в androidmvp / MainPresenter / void onItemClicked
 
 Исправить ошибки?
+-изменить login/LoginInteractor.java
+-убрать knife или везде испорльзовать
+-Переписать по возможности на лямбда
 
 Не делать сильно сложно
 написать что это минимально жизнеспособный продукт 
@@ -29,20 +33,19 @@ td
 -удалить регистрацию
 
 Перед выкладыванием на гитхаб убрать логи, искать по "TAG"
+
 Тестовый апи http://apitdlist.dev.vladlin.ru/v1/task  demo / 123456 / demo12
 Основной апи http://apitdlist.vladlin.ru/ demo1212 demo1213
 
 d
 ---
-создать модель LogoutModel
-Реализовать кнопку выход с очисткой настройки accessToken и дерганьем апи GET /v1/logout
-commit 20190111_1151
-Реализзовать проверку заполнения полей "username" и "password" 
-возвращаю ui/login/LoginInteractor.java
-commit 20190111_1728
-User переименовать в Credentials
-Вызов getTasks сделать с токеном
-commit 20190111_1744
-убрать лишнее с активити Логин
-Переключить на основной апи http://apitdlist.vladlin.ru/
+popup menu http://developer.alexanderklimov.ru/android/popupmenu.php
+popup menu
+см. в androidmvp / MainPresenter / void onItemClicked
+еще можно посмотреть в старом проекте визердата
+1. создать макет popupmenu (переименовываю login - он вроде не нужен)
+2. adapters/TasksAdapter void onBindViewHolder
+ПРОФИТ
+
+
 commit
