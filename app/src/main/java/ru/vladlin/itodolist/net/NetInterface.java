@@ -12,6 +12,7 @@ import ru.vladlin.itodolist.models.AccesstokenModel;
 import ru.vladlin.itodolist.models.AuthorizeModel;
 import ru.vladlin.itodolist.models.LogoutModel;
 import ru.vladlin.itodolist.models.Task;
+import ru.vladlin.itodolist.models.TaskModel;
 import ru.vladlin.itodolist.models.TasksModel;
 import ru.vladlin.itodolist.models.Token;
 import ru.vladlin.itodolist.models.Credentials;
@@ -36,7 +37,8 @@ public interface NetInterface {
     @DELETE("v1/task/delete/{id}")
     Observable<Task> deleteTask(@Path("id") String taskId, @Header("Authorization") String accesstoken);
 
-    //POST /v1/task/create
+    @POST("v1/task/create")
+    Observable<Task> createTask(@Body TaskModel taskModel, @Header("Authorization") String accesstoken);
 
 }
 

@@ -10,4 +10,8 @@ public interface TaskView {
 
     void showMessage(String message);
 
+    void navigateToMain();
+
+    String getAccessToken();
+
 }

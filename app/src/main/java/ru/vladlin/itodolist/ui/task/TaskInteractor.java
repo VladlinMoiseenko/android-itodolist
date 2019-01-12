@@ -9,16 +9,16 @@ public class TaskInteractor {
 
         void onTitledError();
 
-        void onSuccess(String task_title);
+        void onSuccess(String task_title, String task_content);
     }
 
-    public void save(final String task_title, final TaskInteractor.OnTaskFinishedListener listener) {
+    public void save(final String task_title, final String task_content, final TaskInteractor.OnTaskFinishedListener listener) {
         new Handler().postDelayed(() -> {
             if (TextUtils.isEmpty(task_title)) {
                 listener.onTitledError();
                 return;
             }
-            listener.onSuccess(task_title);
+            listener.onSuccess(task_title, task_content);
         }, 50);
     }
 }

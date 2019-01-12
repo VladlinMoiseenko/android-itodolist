@@ -71,4 +71,9 @@ public class TaskModel {
         this.content = content;
     }
 
+    public TaskModel(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
 }

@@ -1,5 +1,20 @@
 package ru.vladlin.itodolist.ui.task;
 
+import android.util.Log;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import ru.vladlin.itodolist.models.AuthorizeModel;
+import ru.vladlin.itodolist.models.Credentials;
+import ru.vladlin.itodolist.models.Task;
+import ru.vladlin.itodolist.models.TaskModel;
+import ru.vladlin.itodolist.models.TasksModel;
+import ru.vladlin.itodolist.net.NetClient;
+import ru.vladlin.itodolist.net.NetInterface;
+
 public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
 
     private TaskView taskView;
@@ -11,12 +26,12 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
     }
 
 
-    public void validateTask(String task_title) {
+    public void validateTask(String task_title, String task_content) {
         if (taskView != null) {
             taskView.showProgress();
         }
 
-        taskInteractor.save(task_title, this);
+        taskInteractor.save(task_title, task_content, this);
 
     }
 
@@ -29,14 +44,53 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
     }
 
     @Override
-    public void onSuccess(String task_title) {
+    public void onSuccess(String task_title, String task_content) {
         if (taskView != null) {
-            taskView.showMessage("task_title "+task_title);
+            //taskView.showMessage("task_title "+task_title);
+
+            getObservableSave(task_title, task_content).subscribeWith(getObserverSave());
         }
+    }
+
+    public Observable<Task> getObservableSave(String title, String content){
+
+        TaskModel taskModel = new TaskModel(title, content);
+
+        String mAccessToken = taskView.getAccessToken();
+
+        return NetClient.getRetrofit().create(NetInterface.class)
+                .createTask(taskModel, mAccessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public DisposableObserver<Task> getObserverSave(){
+        return new DisposableObserver<Task>() {
+
+            @Override
+            public void onNext(@NonNull Task response) {
+                //taskView.showMessage("OK");
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                e.printStackTrace();
+                taskView.hideProgress();
+                taskView.showMessage("Error retrieving data");
+            }
+
+            @Override
+            public void onComplete() {
+                ///taskView.hideProgress();
+                taskView.navigateToMain();
+            }
+        };
     }
 
     public void onDestroy() {
         taskView = null;
+        getObserverSave().dispose();
     }
 
 }
