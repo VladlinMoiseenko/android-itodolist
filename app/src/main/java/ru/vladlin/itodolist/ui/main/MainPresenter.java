@@ -8,6 +8,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import ru.vladlin.itodolist.models.LogoutModel;
+import ru.vladlin.itodolist.models.Task;
 import ru.vladlin.itodolist.net.NetClient;
 import ru.vladlin.itodolist.net.NetInterface;
 
@@ -28,23 +29,21 @@ class MainPresenter {
             mainView.showProgress();
         }
 
-        getObservable(accesstoken).subscribeWith(getObserver());
+        viewTasks(accesstoken);
     }
 
-    void onItemClicked(String item) {
-        if (mainView != null) {
-            mainView.showMessage(String.format("%s clicked", item));
-        }
+    void viewTasks(String accesstoken){
+        getObservableViewTasks(accesstoken).subscribeWith(getObserverViewTasks());
     }
 
-    public Observable<TasksModel> getObservable(String accesstoken){
+    public Observable<TasksModel> getObservableViewTasks(String accesstoken){
         return NetClient.getRetrofit().create(NetInterface.class)
                 .getTasks(accesstoken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public DisposableObserver<TasksModel> getObserver(){
+    public DisposableObserver<TasksModel> getObserverViewTasks(){
         return new DisposableObserver<TasksModel>() {
 
             @Override
@@ -106,13 +105,56 @@ class MainPresenter {
         };
     }
 
-    void onDestroy() {
-        mainView = null;
-        getObserver().dispose();
-        getObserverLogout().dispose();
+
+    void taskDelete(String taskId, String accesstoken) {
+        //mainView.showMessage(String.format("%s deleted", taskId));
+
+        getObservableDelete(taskId, accesstoken).subscribeWith(getObserverDelete(accesstoken));
+
     }
 
-//    public MainView getMainView() {
-//        return mainView;
-//    }
+    public Observable<Task> getObservableDelete(String taskId, String accesstoken){
+        return NetClient.getRetrofit().create(NetInterface.class)
+                .deleteTask(taskId, accesstoken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public DisposableObserver<Task> getObserverDelete(String accesstoken){
+        return new DisposableObserver<Task>() {
+
+            @Override
+            public void onNext(@NonNull Task taskResponse) {
+                mainView.showMessage(String.format("%s Задача удалена", taskResponse.getStatus()));
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG,"Error"+e);
+                e.printStackTrace();
+                mainView.showMessage("Error retrieving data");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG,"Completed");
+                //mainView.hideProgress();
+                viewTasks(accesstoken);
+            }
+        };
+    }
+
+
+
+    void onDestroy() {
+        mainView = null;
+        getObserverViewTasks().dispose();
+        getObserverLogout().dispose();
+        getObserverDelete("").dispose();
+    }
+
+    public MainView getMainView() {
+        return mainView;
+    }
 }

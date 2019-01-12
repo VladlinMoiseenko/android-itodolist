@@ -2,16 +2,12 @@
 
 
 
-реализовать Удаление
-
-DELETE /v1/task/delete/"id"
-
-
+реализовать Создание задачи с большой кнопкой Плюс
 
 td
 ===
 
-реализовать Создание задачи с большой кнопкой Плюс
+
 
 реализовать Редактирование 
 
@@ -39,13 +35,9 @@ td
 
 d
 ---
-popup menu http://developer.alexanderklimov.ru/android/popupmenu.php
-popup menu
-см. в androidmvp / MainPresenter / void onItemClicked
-еще можно посмотреть в старом проекте визердата
-1. создать макет popupmenu (переименовываю login - он вроде не нужен)
-2. adapters/TasksAdapter void onBindViewHolder
-ПРОФИТ
-
-
-commit
+Создать модели Task и TaskData используя http://www.jsonschema2pojo.org/
+!попап меню переделал -  реализовал в МайтАктивити
+реализовать Удаление
+После удаления, обновить таски
+commit 
+commit 

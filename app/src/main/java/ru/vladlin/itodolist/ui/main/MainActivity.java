@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import butterknife.ButterKnife;
 
 import ru.vladlin.itodolist.R;
 import ru.vladlin.itodolist.adapters.TasksAdapter;
+import ru.vladlin.itodolist.models.TaskModel;
 import ru.vladlin.itodolist.models.TasksModel;
 import ru.vladlin.itodolist.ui.login.LoginActivity;
 
@@ -121,12 +123,44 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void displayTasks(TasksModel tasksResponse) {
         if(tasksResponse!=null) {
-            adapter = new TasksAdapter(tasksResponse.getData(), ru.vladlin.itodolist.ui.main.MainActivity.this);
+            adapter = new TasksAdapter(tasksResponse.getData(), ru.vladlin.itodolist.ui.main.MainActivity.this, this::onItemClicked);
             recyclerView.setAdapter(adapter);
         }else{
             Log.d(TAG,"Data response null");
         }
     }
+
+    void onItemClicked(View v, TaskModel itemTask) {
+
+        PopupMenu popup = new PopupMenu(v.getContext(), v);
+        popup.inflate(R.menu.popupmenu);
+        popup.setOnMenuItemClickListener((item) -> {
+            switch (item.getItemId()) {
+                case R.id.action_edit:
+                    //Log.d(TAG,"edit" + itemTask.getTitle());
+                    showMessage(String.format("%s edited", itemTask.getId()));
+                    return true;
+                case R.id.action_delete:
+                    taskDelete(itemTask.getId());
+                    return true;
+                default:
+                    return false;
+            }
+        });
+        popup.show();
+
+    }
+
+    void taskDelete(String taskId) {
+
+        if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
+            showProgress();
+            mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
+            presenter.taskDelete(taskId, mAccessToken);
+        }
+
+    }
+
 
 
 }
