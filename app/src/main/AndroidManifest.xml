@@ -27,6 +27,10 @@
             android:name=".ui.registration.RegistrationActivity"
             android:label="@string/registration_name">
         </activity>
+        <activity
+            android:name=".ui.task.TaskActivity"
+            android:label="@string/task_name">
+        </activity>
     </application>
 
 </manifest>

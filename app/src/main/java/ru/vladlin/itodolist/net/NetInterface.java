@@ -36,6 +36,8 @@ public interface NetInterface {
     @DELETE("v1/task/delete/{id}")
     Observable<Task> deleteTask(@Path("id") String taskId, @Header("Authorization") String accesstoken);
 
+    //POST /v1/task/create
+
 }
 
 

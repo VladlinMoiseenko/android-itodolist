@@ -12,4 +12,9 @@
     <string name="registration">Зарегистрироваться</string>
     <string name="action_edit">Редактировать</string>
     <string name="action_delete">Удалить</string>
+    <string name="task_name">Task</string>
+    <string name="task_title">task title</string>
+    <string name="task_content">task content</string>
+    <string name="title_error">Title cannot be empty</string>
+    <string name="save">save</string>
 </resources>

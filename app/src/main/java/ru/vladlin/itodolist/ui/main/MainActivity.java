@@ -3,6 +3,8 @@ package ru.vladlin.itodolist.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -24,6 +26,7 @@ import ru.vladlin.itodolist.adapters.TasksAdapter;
 import ru.vladlin.itodolist.models.TaskModel;
 import ru.vladlin.itodolist.models.TasksModel;
 import ru.vladlin.itodolist.ui.login.LoginActivity;
+import ru.vladlin.itodolist.ui.task.TaskActivity;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -50,23 +53,23 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         progressBar = findViewById(R.id.progress);
         presenter = new MainPresenter(this);
-
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener((view) -> {
+            taskAdd();
+        });
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
             mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
-
             presenter.onResume(mAccessToken);
-
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
-
     }
 
     @Override
@@ -82,11 +85,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
                 if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
                     mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
-
                     presenter.logout(mAccessToken);
-
                     mSettings.edit().clear().apply();
-
                 }
 
                 startActivity(new Intent(this, LoginActivity.class));
@@ -131,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     void onItemClicked(View v, TaskModel itemTask) {
-
         PopupMenu popup = new PopupMenu(v.getContext(), v);
         popup.inflate(R.menu.popupmenu);
         popup.setOnMenuItemClickListener((item) -> {
@@ -148,19 +147,20 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         });
         popup.show();
-
     }
 
     void taskDelete(String taskId) {
-
         if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
             showProgress();
             mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
             presenter.taskDelete(taskId, mAccessToken);
         }
-
     }
 
+    void taskAdd() {
+        startActivity(new Intent(this, TaskActivity.class));
+        finish();
+    }
 
 
 }
