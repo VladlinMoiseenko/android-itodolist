@@ -1,6 +1,5 @@
 package ru.vladlin.itodolist.net;
 
-
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -11,14 +10,18 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import ru.vladlin.itodolist.models.AccesstokenModel;
 import ru.vladlin.itodolist.models.AuthorizeModel;
+import ru.vladlin.itodolist.models.Credentials;
 import ru.vladlin.itodolist.models.LogoutModel;
+import ru.vladlin.itodolist.models.ProfileModel;
 import ru.vladlin.itodolist.models.Task;
 import ru.vladlin.itodolist.models.TaskModel;
 import ru.vladlin.itodolist.models.TasksModel;
 import ru.vladlin.itodolist.models.Token;
-import ru.vladlin.itodolist.models.Credentials;
 
 public interface NetInterface {
+
+    @POST("v1/register")
+    Observable<ProfileModel> register(@Body Credentials credentials);
 
     @POST("v1/authorize")
     Observable<AuthorizeModel> authorize(@Body Credentials credentials);
@@ -41,15 +44,8 @@ public interface NetInterface {
     @POST("v1/task/create")
     Observable<Task> createTask(@Body TaskModel taskModel, @Header("Authorization") String accesstoken);
 
-    //PUT /v1/task/update/"id"
-//    curl -X PUT \'http://apitdlist.vladlin.ru/v1/task/update/9' \
-//            -H "Authorization: a044de6c968a5c138e0c6990507b6483" \
-//            -H 'Content-Type: application/json' \
-//            -d '{"title":"new new title","content":"new new content"}
-
     @PUT("v1/task/update/{id}")
     Observable<Task> updateTask(@Path("id") String taskId, @Body TaskModel taskModel, @Header("Authorization") String accesstoken);
-
 
 }
 

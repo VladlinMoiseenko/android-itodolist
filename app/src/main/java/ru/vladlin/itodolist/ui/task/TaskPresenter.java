@@ -39,7 +39,6 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
     public void onSuccess(String task_title, String task_content) {
         if (taskView != null) {
 
-            //точка расхождения
             if (taskView.getIdTask() == null) {
                 taskView.showMessage("NEW getIdTask:" + taskView.getIdTask());
                 getObservableSave(task_title, task_content).subscribeWith(getObserverSave());

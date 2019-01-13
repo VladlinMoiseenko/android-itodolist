@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import ru.vladlin.itodolist.R;
@@ -52,20 +51,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
             mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
-
             navigateToMain();
-
         }
     }
 
     @Override
     public void saveAccessToken(String accessToken) {
         if(accessToken!=null) {
-
             SharedPreferences.Editor editor = mSettings.edit();
             editor.putString(APP_PREFERENCES_ACCESS_TOKEN, accessToken);
             editor.apply();
-
         }
     }
 

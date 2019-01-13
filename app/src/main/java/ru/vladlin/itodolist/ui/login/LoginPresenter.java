@@ -31,9 +31,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
         if (loginView != null) {
             loginView.showProgress();
         }
-
         loginInteractor.login(username, password, this);
-
     }
 
     @Override
@@ -55,7 +53,6 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     @Override
     public void onSuccess(String username, String password) {
         if (loginView != null) {
-            //loginView.navigateToHome();
             getObservable(username, password).subscribeWith(getObserver());
         }
     }
@@ -63,7 +60,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
 
     public Observable<AuthorizeModel> getObservable(String username, String password){
 
-        Credentials credentials = new Credentials(username, password);
+        Credentials credentials = new Credentials(username, password, null);
 
         return NetClient.getRetrofit().create(NetInterface.class)
                 .authorize(credentials)

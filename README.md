@@ -1,13 +1,17 @@
 
 
 
+Изменить ui.registration.RegistrationActivity и добавить остальные файлы
+RegistrationPresenter
+RegistrationInteractor
+RegistrationView
 
+
+
+Сделать все три поля обязательными
 
 td
 ===
-
-реализовать Регистрацию
--У элемента E-mail используется атрибут android:inputType="textEmailAddress".
 
 Исправить ошибки:
 -accesstoken нужно получать проще из любой точки программы, через View как в TaskActivity
@@ -18,7 +22,7 @@ td
 -убрать логи, искать по "TAG"
 
 Не делать сильно сложно
-написать что это минимально жизнеспособный продукт 
+написать что это минимально жизнеспособный продукт MVP
 итак довольно много библиотек и паттерн MVP
 Написать что не сделано:
 -сохранение состояния при изменении ориентации
@@ -35,6 +39,18 @@ td
 
 d
 ---
-конвертировать время unix time https://stackoverflow.com/questions/17432735/convert-unix-time-stamp-to-date-in-java
-реализовать Редактирование таска в том же TaskActivity
-commit 
+реализовать Регистрацию POST /v1/register
+cоздаль модели ProfileModel ProfileDataModel
+В Credentials добавить email
+Изменить layout/activity_registration
+
+
+
+commit
+commit
+commit
+commit
+commit
+commit
+commit
+commit
