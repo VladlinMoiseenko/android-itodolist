@@ -54,6 +54,11 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         password.setError(getString(R.string.password_error));
     }
 
+    @Override
+    public void setEmailError() {
+        password.setError(getString(R.string.email_error));
+    }
+
     private void validateCredentials() {
         presenter.validateCredentials(username.getText().toString(), password.getText().toString(), email.getText().toString());
     }

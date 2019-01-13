@@ -7,13 +7,12 @@ public class RegistrationInteractor {
 
     interface OnLoginFinishedListener {
         void onUsernameError();
-
         void onPasswordError();
-
-        void onSuccess(String username, String password);
+        void onEmailError();
+        void onSuccess();
     }
 
-    public void login(final String username, final String password, final OnLoginFinishedListener listener) {
+    public void login(final String username, final String password, final String email, final OnLoginFinishedListener listener) {
         new Handler().postDelayed(() -> {
             if (TextUtils.isEmpty(username)) {
                 listener.onUsernameError();
@@ -23,7 +22,11 @@ public class RegistrationInteractor {
                 listener.onPasswordError();
                 return;
             }
-            listener.onSuccess(username, password);
+            if (TextUtils.isEmpty(email)) {
+                listener.onEmailError();
+                return;
+            }
+            listener.onSuccess();
         }, 500);
     }
 }

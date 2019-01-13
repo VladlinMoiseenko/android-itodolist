@@ -53,12 +53,11 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     @Override
     public void onSuccess(String username, String password) {
         if (loginView != null) {
-            getObservable(username, password).subscribeWith(getObserver());
+            getObservableAuthorize(username, password).subscribeWith(getObserverAuthorize());
         }
     }
 
-
-    public Observable<AuthorizeModel> getObservable(String username, String password){
+    public Observable<AuthorizeModel> getObservableAuthorize(String username, String password){
 
         Credentials credentials = new Credentials(username, password, null);
 
@@ -68,13 +67,12 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public DisposableObserver<AuthorizeModel> getObserver(){
+    public DisposableObserver<AuthorizeModel> getObserverAuthorize(){
         return new DisposableObserver<AuthorizeModel>() {
 
             @Override
             public void onNext(@NonNull AuthorizeModel response) {
                 String authorizationCode = response.getData().getAuthorizationCode();
-                //Log.d(TAG,"response:"+authorizationCode);
                 getToken(authorizationCode);
             }
 
@@ -95,15 +93,11 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     }
 
     private void getToken(String authorizationCode) {
-
         getObservableToken(authorizationCode).subscribeWith(getObserverToken());
-
     }
 
     public Observable<AccesstokenModel> getObservableToken(String authorizationCode){
-
         Token token = new Token(authorizationCode);
-
         return NetClient.getRetrofit().create(NetInterface.class)
                 .accesstoken(token)
                 .subscribeOn(Schedulers.io())
@@ -112,7 +106,6 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
 
     public DisposableObserver<AccesstokenModel> getObserverToken(){
         return new DisposableObserver<AccesstokenModel>() {
-
             @Override
             public void onNext(@NonNull AccesstokenModel response) {
                 String accessToken = response.getData().getAccessToken();
@@ -137,7 +130,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
 
     public void onDestroy() {
         loginView = null;
-        getObserver().dispose();
+        getObserverAuthorize().dispose();
         getObserverToken().dispose();
     }
 

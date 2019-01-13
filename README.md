@@ -1,14 +1,8 @@
 
 
 
-Изменить ui.registration.RegistrationActivity и добавить остальные файлы
-RegistrationPresenter
-RegistrationInteractor
-RegistrationView
 
 
-
-Сделать все три поля обязательными
 
 td
 ===
@@ -35,7 +29,7 @@ td
 Перед выкладыванием на гитхаб убрать логи, искать по "TAG"
 
 Тестовый апи http://apitdlist.dev.vladlin.ru/v1/task  demo / 123456 / demo12
-Основной апи http://apitdlist.vladlin.ru/ demo1212 demo1213
+Основной апи http://apitdlist.vladlin.ru/ demo1212 demo1213 demo1111
 
 d
 ---
@@ -43,11 +37,14 @@ d
 cоздаль модели ProfileModel ProfileDataModel
 В Credentials добавить email
 Изменить layout/activity_registration
-
-
-
-commit
-commit
+Изменить ui.registration.RegistrationActivity и добавить остальные файлы
+RegistrationPresenter
+RegistrationInteractor
+RegistrationView
+commit 20190113_1714 промежуточный
+Сделать все три поля обязательными
+проверить demo1111
+commit 
 commit
 commit
 commit
