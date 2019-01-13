@@ -10,10 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-
 import ru.vladlin.itodolist.R;
 import ru.vladlin.itodolist.ui.main.MainActivity;
-
 
 public class TaskActivity extends AppCompatActivity  implements TaskView{
 
@@ -21,23 +19,28 @@ public class TaskActivity extends AppCompatActivity  implements TaskView{
     private EditText task_title;
     private EditText task_content;
     private TaskPresenter presenter;
-
     public static final String APP_PREFERENCES = "mainSettings";
     public static final String APP_PREFERENCES_ACCESS_TOKEN = "AccessToken";
     private SharedPreferences mSettings;
     private String mAccessToken;
+    private String taskId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
-        progressBar = findViewById(R.id.progress);
         task_title = findViewById(R.id.task_title);
         task_content = findViewById(R.id.task_content);
 
-        findViewById(R.id.btn_save).setOnClickListener(v -> validateTask());
+        Intent intent = getIntent();
+        taskId = intent.getStringExtra("taskId");
 
+        task_title.setText(intent.getStringExtra("taskTitle"));
+        task_content.setText(intent.getStringExtra("taskContent"));
+
+        findViewById(R.id.btn_save).setOnClickListener(v -> validateTask());
+        progressBar = findViewById(R.id.progress);
         presenter = new TaskPresenter(this, new TaskInteractor());
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
     }
@@ -79,9 +82,18 @@ public class TaskActivity extends AppCompatActivity  implements TaskView{
     }
 
     @Override
+    public String getIdTask() {
+        return taskId;
+    }
+
+    @Override
     protected void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
     }
+
+
+
+
 
 }

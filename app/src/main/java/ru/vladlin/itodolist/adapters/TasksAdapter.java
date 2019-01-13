@@ -2,7 +2,6 @@ package ru.vladlin.itodolist.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import ru.vladlin.itodolist.R;
@@ -50,8 +51,14 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ApiHolder> {
         final TaskModel item = tasksList.get(position);
 
         holder.tTitle.setText(item.getTitle());
-        holder.tContent.setText(tasksList.get(position).getContent());
-        holder.tCreatedAt.setText(tasksList.get(position).getCreatedAt());
+        holder.tContent.setText(item.getContent());
+
+        //convert unix time
+        long unixSeconds = Long.parseLong(item.getCreatedAt());;
+        Date date = new java.util.Date(unixSeconds*1000L);
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+        sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+3"));
+        holder.tCreatedAt.setText(sdf.format(date));
 
         holder.cv.setOnClickListener(v -> listener.onItemClicked(v, item));
 

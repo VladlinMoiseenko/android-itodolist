@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener((view) -> {
-            taskAdd();
+            addTask();
         });
 
     }
@@ -136,11 +136,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         popup.setOnMenuItemClickListener((item) -> {
             switch (item.getItemId()) {
                 case R.id.action_edit:
-                    //Log.d(TAG,"edit" + itemTask.getTitle());
-                    showMessage(String.format("%s edited", itemTask.getId()));
+                    updateTask(itemTask);
                     return true;
                 case R.id.action_delete:
-                    taskDelete(itemTask.getId());
+                    deleteTask(itemTask.getId());
                     return true;
                 default:
                     return false;
@@ -149,19 +148,27 @@ public class MainActivity extends AppCompatActivity implements MainView {
         popup.show();
     }
 
-    void taskDelete(String taskId) {
+    void deleteTask(String taskId) {
         if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
             showProgress();
             mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
-            presenter.taskDelete(taskId, mAccessToken);
+            presenter.deleteTask(taskId, mAccessToken);
         }
     }
 
-    void taskAdd() {
+    void addTask() {
         startActivity(new Intent(this, TaskActivity.class));
         finish();
     }
 
+    void updateTask(TaskModel itemTask){
+        Intent intent = new Intent(this, TaskActivity.class);
+        intent.putExtra("taskId", itemTask.getId());
+        intent.putExtra("taskTitle", itemTask.getTitle());
+        intent.putExtra("taskContent", itemTask.getContent());
+        startActivity(intent);
+        finish();
+    }
 
 }
 

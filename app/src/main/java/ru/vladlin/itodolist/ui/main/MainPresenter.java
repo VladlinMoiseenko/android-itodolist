@@ -106,11 +106,8 @@ class MainPresenter {
     }
 
 
-    void taskDelete(String taskId, String accesstoken) {
-        //mainView.showMessage(String.format("%s deleted", taskId));
-
+    void deleteTask(String taskId, String accesstoken) {
         getObservableDelete(taskId, accesstoken).subscribeWith(getObserverDelete(accesstoken));
-
     }
 
     public Observable<Task> getObservableDelete(String taskId, String accesstoken){
@@ -139,7 +136,6 @@ class MainPresenter {
             @Override
             public void onComplete() {
                 Log.d(TAG,"Completed");
-                //mainView.hideProgress();
                 viewTasks(accesstoken);
             }
         };
@@ -154,7 +150,7 @@ class MainPresenter {
         getObserverDelete("").dispose();
     }
 
-    public MainView getMainView() {
-        return mainView;
-    }
+//    public MainView getMainView() {
+//        return mainView;
+//    }
 }

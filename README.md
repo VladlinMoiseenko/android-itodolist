@@ -1,27 +1,21 @@
 
 
 
-конвертировать время
-
 
 
 td
 ===
-
-
-реализовать Редактирование таска
-
-
 
 реализовать Регистрацию
 -У элемента E-mail используется атрибут android:inputType="textEmailAddress".
 
 Исправить ошибки:
 -accesstoken нужно получать проще из любой точки программы, через View как в TaskActivity
+-все сообщения собрать в string
 -убрать knife или везде испорльзовать
 -Переписать по возможности на лямбда
-
-Для красивых картинок см. http://developer.alexanderklimov.ru/android/android-support-design.php
+-плюс переделать, см. http://developer.alexanderklimov.ru/android/android-support-design.php
+-убрать логи, искать по "TAG"
 
 Не делать сильно сложно
 написать что это минимально жизнеспособный продукт 
@@ -41,18 +35,6 @@ td
 
 d
 ---
-Создать модели Task и TaskData используя http://www.jsonschema2pojo.org/
-!попап меню переделал -  реализовал в МайтАктивити
-реализовать Удаление
-После удаления, обновить таски
-commit 20190112_1300
-Набор встроенных картинок http://gae.darshancomputing.com/android/1.5-drawables.html
-реализовать Создание задачи с большой кнопкой Плюс
-Новый активити TaskActivity и макет activity_task
-TaskInteractor
-TaskView
-TaskPresenter
-Титл - обязательное поле, use TaskInteractor
-реализовать Создание таска
-commit 
+конвертировать время unix time https://stackoverflow.com/questions/17432735/convert-unix-time-stamp-to-date-in-java
+реализовать Редактирование таска в том же TaskActivity
 commit 

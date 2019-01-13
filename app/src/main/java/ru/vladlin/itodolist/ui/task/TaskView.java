@@ -14,4 +14,6 @@ public interface TaskView {
 
     String getAccessToken();
 
+    String getIdTask();
+
 }
