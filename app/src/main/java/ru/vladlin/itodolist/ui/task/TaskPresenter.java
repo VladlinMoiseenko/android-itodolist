@@ -51,9 +51,9 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
 
     public Observable<Task> getObservableUpdate(String taskId, String title, String content){
         TaskModel taskModel = new TaskModel(title, content);
-        String mAccessToken = taskView.getAccessToken();
+        String accessToken = taskView.getAccessToken();
         return NetClient.getRetrofit().create(NetInterface.class)
-                .updateTask(taskId, taskModel, mAccessToken)
+                .updateTask(taskId, taskModel, accessToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -71,11 +71,11 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
         return new DisposableObserver<Task>() {
             @Override
             public void onNext(@NonNull Task response) {
-                //taskView.showMessage("OK");
+                //taskView.showMessage("");
             }
             @Override
             public void onError(@NonNull Throwable e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 taskView.hideProgress();
                 taskView.showMessage("Error retrieving data");
             }

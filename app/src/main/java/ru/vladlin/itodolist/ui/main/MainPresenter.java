@@ -1,7 +1,5 @@
 package ru.vladlin.itodolist.ui.main;
 
-import android.util.Log;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -16,29 +14,28 @@ import ru.vladlin.itodolist.models.TasksModel;
 
 class MainPresenter {
 
-    private String TAG = "MainPresenter";
-
     private MainView mainView;
 
     MainPresenter(MainView mainView) {
         this.mainView = mainView;
     }
 
-    void onResume(String accesstoken) {
+    void onResume() {
         if (mainView != null) {
             mainView.showProgress();
         }
 
-        viewTasks(accesstoken);
+        viewTasks();
     }
 
-    void viewTasks(String accesstoken){
-        getObservableViewTasks(accesstoken).subscribeWith(getObserverViewTasks());
+    void viewTasks(){
+        getObservableViewTasks().subscribeWith(getObserverViewTasks());
     }
 
-    public Observable<TasksModel> getObservableViewTasks(String accesstoken){
+    public Observable<TasksModel> getObservableViewTasks(){
+        String accessToken = mainView.getAccessToken();
         return NetClient.getRetrofit().create(NetInterface.class)
-                .getTasks(accesstoken)
+                .getTasks(accessToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -53,30 +50,29 @@ class MainPresenter {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.d(TAG,"Error"+e);
-                e.printStackTrace();
+                //e.printStackTrace();
                 mainView.showMessage("Error retrieving data");
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG,"Completed");
                 mainView.hideProgress();
             }
         };
     }
 
-    void logout(String accesstoken) {
+    void logout() {
         if (mainView != null) {
             mainView.showProgress();
         }
 
-        getObservableLogout(accesstoken).subscribeWith(getObserverLogout());
+        getObservableLogout().subscribeWith(getObserverLogout());
     }
 
-    public Observable<LogoutModel> getObservableLogout(String accesstoken){
+    public Observable<LogoutModel> getObservableLogout(){
+        String accessToken = mainView.getAccessToken();
         return NetClient.getRetrofit().create(NetInterface.class)
-                .logout(accesstoken)
+                .logout(accessToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -86,39 +82,37 @@ class MainPresenter {
 
             @Override
             public void onNext(@NonNull LogoutModel logoutResponse) {
-                //Log.d(TAG,"logoutResponse:"+logoutResponse.getStatus());
                 //mainView.displayTasks(tasksResponse);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.d(TAG,"Error"+e);
-                e.printStackTrace();
+                //e.printStackTrace();
                 mainView.showMessage("Error retrieving data");
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG,"Completed");
                 mainView.hideProgress();
             }
         };
     }
 
 
-    void deleteTask(String taskId, String accesstoken) {
-        getObservableDelete(taskId, accesstoken).subscribeWith(getObserverDelete(accesstoken));
+    void deleteTask(String taskId) {
+        getObservableDelete(taskId).subscribeWith(getObserverDelete());
     }
 
-    public Observable<Task> getObservableDelete(String taskId, String accesstoken){
+    public Observable<Task> getObservableDelete(String taskId){
+        String accessToken = mainView.getAccessToken();
         return NetClient.getRetrofit().create(NetInterface.class)
-                .deleteTask(taskId, accesstoken)
+                .deleteTask(taskId, accessToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
 
-    public DisposableObserver<Task> getObserverDelete(String accesstoken){
+    public DisposableObserver<Task> getObserverDelete(){
         return new DisposableObserver<Task>() {
 
             @Override
@@ -128,29 +122,22 @@ class MainPresenter {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.d(TAG,"Error"+e);
-                e.printStackTrace();
+                //e.printStackTrace();
                 mainView.showMessage("Error retrieving data");
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG,"Completed");
-                viewTasks(accesstoken);
+                viewTasks();
             }
         };
     }
-
-
 
     void onDestroy() {
         mainView = null;
         getObserverViewTasks().dispose();
         getObserverLogout().dispose();
-        getObserverDelete("").dispose();
+        getObserverDelete().dispose();
     }
 
-//    public MainView getMainView() {
-//        return mainView;
-//    }
 }

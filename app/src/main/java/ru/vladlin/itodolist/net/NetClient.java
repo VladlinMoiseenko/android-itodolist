@@ -7,11 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetClient {
 
-    public static Retrofit retrofit;
-
-//    public void NetworkClient(){
-//
-//    }
+    private static Retrofit retrofit;
 
     public static Retrofit getRetrofit(){
 
@@ -20,7 +16,6 @@ public class NetClient {
             OkHttpClient okHttpClient = builder.build();
 
             retrofit = new Retrofit.Builder()
-                        // test .baseUrl("http://apitdlist.dev.vladlin.ru/")
                         .baseUrl("http://apitdlist.vladlin.ru/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

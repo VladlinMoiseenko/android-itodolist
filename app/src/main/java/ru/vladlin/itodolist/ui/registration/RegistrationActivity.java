@@ -21,11 +21,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private EditText email;
     private RegistrationPresenter presenter;
 
-    public static final String APP_PREFERENCES = "mainSettings";
-    public static final String APP_PREFERENCES_ACCESS_TOKEN = "AccessToken";
-    private SharedPreferences mSettings;
-    private String mAccessToken;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +34,6 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         findViewById(R.id.btn_register).setOnClickListener(v -> validateCredentials());
 
         presenter = new RegistrationPresenter(this, new RegistrationInteractor());
-
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
     }
 
@@ -87,8 +80,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     @Override
     public void saveAccessToken(String accessToken) {
         if(accessToken!=null) {
+            SharedPreferences mSettings = getSharedPreferences("mainSettings", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = mSettings.edit();
-            editor.putString(APP_PREFERENCES_ACCESS_TOKEN, accessToken);
+            editor.putString("AccessToken", accessToken);
             editor.apply();
         }
     }

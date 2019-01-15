@@ -1,7 +1,5 @@
 package ru.vladlin.itodolist.ui.registration;
 
-import android.util.Log;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -83,7 +81,7 @@ public class RegistrationPresenter implements RegistrationInteractor.OnLoginFini
             }
             @Override
             public void onError(@NonNull Throwable e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 registrationView.hideProgress();
                 registrationView.showMessage("Error retrieving data");
             }
@@ -116,7 +114,7 @@ public class RegistrationPresenter implements RegistrationInteractor.OnLoginFini
             }
             @Override
             public void onError(@NonNull Throwable e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 registrationView.hideProgress();
                 registrationView.showMessage("Error retrieving data");
             }
@@ -148,7 +146,7 @@ public class RegistrationPresenter implements RegistrationInteractor.OnLoginFini
             }
             @Override
             public void onError(@NonNull Throwable e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             @Override
             public void onComplete() {

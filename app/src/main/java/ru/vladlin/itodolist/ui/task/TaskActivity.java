@@ -19,10 +19,6 @@ public class TaskActivity extends AppCompatActivity  implements TaskView{
     private EditText task_title;
     private EditText task_content;
     private TaskPresenter presenter;
-    public static final String APP_PREFERENCES = "mainSettings";
-    public static final String APP_PREFERENCES_ACCESS_TOKEN = "AccessToken";
-    private SharedPreferences mSettings;
-    private String mAccessToken;
     private String taskId;
 
     @Override
@@ -42,7 +38,6 @@ public class TaskActivity extends AppCompatActivity  implements TaskView{
         findViewById(R.id.btn_save).setOnClickListener(v -> validateTask());
         progressBar = findViewById(R.id.progress);
         presenter = new TaskPresenter(this, new TaskInteractor());
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -77,8 +72,8 @@ public class TaskActivity extends AppCompatActivity  implements TaskView{
 
     @Override
     public String getAccessToken() {
-        mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
-        return mAccessToken;
+        SharedPreferences mSettings = getSharedPreferences("mainSettings", Context.MODE_PRIVATE);
+        return mSettings.getString("AccessToken", "");
     }
 
     @Override
@@ -91,9 +86,5 @@ public class TaskActivity extends AppCompatActivity  implements TaskView{
         presenter.onDestroy();
         super.onDestroy();
     }
-
-
-
-
 
 }

@@ -24,8 +24,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public static final String APP_PREFERENCES = "mainSettings";
     public static final String APP_PREFERENCES_ACCESS_TOKEN = "AccessToken";
     private SharedPreferences mSettings;
-    private String mAccessToken;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onResume();
 
         if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
-            mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
             navigateToMain();
         }
     }

@@ -3,7 +3,6 @@ package ru.vladlin.itodolist.adapters;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,9 @@ import ru.vladlin.itodolist.models.TaskModel;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ApiHolder> {
 
-    private String TAG = "TasksAdapter";
+    private List<TaskModel> tasksList;
 
-    List<TaskModel> tasksList;
-
-    Context context;
+    private Context context;
 
     public TasksAdapter(List<TaskModel> tasksList, Context context, Listener listener) {
         this.tasksList = tasksList;
@@ -72,7 +69,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ApiHolder> {
     public class ApiHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
-
         TextView tTitle, tContent, tCreatedAt;
 
         public ApiHolder(View v) {

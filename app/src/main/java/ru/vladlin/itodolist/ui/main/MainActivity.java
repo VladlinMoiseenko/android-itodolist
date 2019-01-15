@@ -3,15 +3,12 @@ package ru.vladlin.itodolist.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,13 +27,6 @@ import ru.vladlin.itodolist.ui.task.TaskActivity;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
-    private String TAG = "MainActivity";
-
-    public static final String APP_PREFERENCES = "mainSettings";
-    public static final String APP_PREFERENCES_ACCESS_TOKEN = "AccessToken";
-    private SharedPreferences mSettings;
-    private String mAccessToken;
-
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
@@ -53,23 +43,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         progressBar = findViewById(R.id.progress);
         presenter = new MainPresenter(this);
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener((view) -> {
-            addTask();
-        });
+        findViewById(R.id.fab).setOnClickListener(v -> addTask());
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
-            mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
-            presenter.onResume(mAccessToken);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        }
+        presenter.onResume();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -83,11 +66,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         switch (item.getItemId()) {
             case R.id.action_logout:
 
-                if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
-                    mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
-                    presenter.logout(mAccessToken);
-                    mSettings.edit().clear().apply();
-                }
+                presenter.logout();
+
+                SharedPreferences mSettings = getSharedPreferences("mainSettings", Context.MODE_PRIVATE);
+                mSettings.edit().clear().apply();
 
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
@@ -126,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             adapter = new TasksAdapter(tasksResponse.getData(), ru.vladlin.itodolist.ui.main.MainActivity.this, this::onItemClicked);
             recyclerView.setAdapter(adapter);
         }else{
-            Log.d(TAG,"Data response null");
+            showMessage("Data response null");
         }
     }
 
@@ -149,11 +131,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     void deleteTask(String taskId) {
-        if (mSettings.contains(APP_PREFERENCES_ACCESS_TOKEN)) {
-            showProgress();
-            mAccessToken = mSettings.getString(APP_PREFERENCES_ACCESS_TOKEN, "");
-            presenter.deleteTask(taskId, mAccessToken);
-        }
+        presenter.deleteTask(taskId);
     }
 
     void addTask() {
@@ -168,6 +146,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
         intent.putExtra("taskContent", itemTask.getContent());
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public String getAccessToken() {
+        SharedPreferences mSettings = getSharedPreferences("mainSettings", Context.MODE_PRIVATE);
+        return mSettings.getString("AccessToken", "");
     }
 
 }

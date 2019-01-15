@@ -17,7 +17,6 @@ import ru.vladlin.itodolist.net.NetInterface;
 
 public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
 
-    private String TAG = "LoginPresenter";
     private LoginView loginView;
     private LoginInteractor loginInteractor;
 
@@ -78,15 +77,13 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.d(TAG,"Error"+e);
-                e.printStackTrace();
+                //e.printStackTrace();
                 loginView.hideProgress();
                 loginView.showMessage("Error retrieving data");
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG,"Completed");
                 loginView.hideProgress();
             }
         };
@@ -109,20 +106,16 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
             @Override
             public void onNext(@NonNull AccesstokenModel response) {
                 String accessToken = response.getData().getAccessToken();
-                Log.d(TAG,"accessToken:"+accessToken);
                 loginView.saveAccessToken(accessToken);
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.d(TAG,"Error"+e);
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG,"Completed");
-                loginView.hideProgress();
                 loginView.navigateToMain();
             }
         };

@@ -30,22 +30,22 @@ public interface NetInterface {
     Observable<AccesstokenModel> accesstoken(@Body Token token);
 
     @GET("v1/logout")
-    Observable<LogoutModel> logout(@Header("Authorization") String accesstoken);
+    Observable<LogoutModel> logout(@Header("Authorization") String accessToken);
 
     @GET("v1/task")
-    Observable<TasksModel> getTasks(@Header("Authorization") String accesstoken);
+    Observable<TasksModel> getTasks(@Header("Authorization") String accessToken);
 
     @GET("v1/task/view/{id}")
-    Observable<Task> viewTask(@Path("id") String taskId, @Header("Authorization") String accesstoken);
+    Observable<Task> viewTask(@Path("id") String taskId, @Header("Authorization") String accessToken);
 
     @DELETE("v1/task/delete/{id}")
-    Observable<Task> deleteTask(@Path("id") String taskId, @Header("Authorization") String accesstoken);
+    Observable<Task> deleteTask(@Path("id") String taskId, @Header("Authorization") String accessToken);
 
     @POST("v1/task/create")
-    Observable<Task> createTask(@Body TaskModel taskModel, @Header("Authorization") String accesstoken);
+    Observable<Task> createTask(@Body TaskModel taskModel, @Header("Authorization") String accessToken);
 
     @PUT("v1/task/update/{id}")
-    Observable<Task> updateTask(@Path("id") String taskId, @Body TaskModel taskModel, @Header("Authorization") String accesstoken);
+    Observable<Task> updateTask(@Path("id") String taskId, @Body TaskModel taskModel, @Header("Authorization") String accessToken);
 
 }
 
