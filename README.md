@@ -3,13 +3,10 @@
 
 
 
-
-
 td
 ===
 
 Исправить ошибки:
--плюс переделать, см. http://developer.alexanderklimov.ru/android/android-support-design.php
 -все сообщения собрать в string
 -убрать knife или везде испорльзовать
 -Переписать по возможности на лямбда
@@ -27,10 +24,9 @@ td
 
 d
 ---
-accessToken нужно получать проще из любой точки программы, через View как в TaskActivity
-убрать логи, искать по "TAG" 
-закомментить e.printStackTrace();
-commit
+Плюс переделать, см. http://developer.alexanderklimov.ru/android/android-support-design.php
+Если нужно показать векторное изображение на версии ниже Android 5.0 Lolipop, в файле build.gradle модуля приложения нужно дописать следующую строку.
+vectorDrawables.useSupportLibrary = true
 commit
 commit
 commit
