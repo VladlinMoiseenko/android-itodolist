@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             adapter = new TasksAdapter(tasksResponse.getData(), ru.vladlin.itodolist.ui.main.MainActivity.this, this::onItemClicked);
             recyclerView.setAdapter(adapter);
         }else{
-            showMessage("Data response null");
+            showMessage(getString(R.string.data_response_null));
         }
     }
 

@@ -1,17 +1,17 @@
 
 
+Все сообщения собрать в string
+логин
+регистрация
+майн
+таск
 
-
+ИСпользовать Новый метод showMessageKey
 
 td
 ===
-
 Исправить ошибки:
--все сообщения собрать в string
 -убрать knife или везде испорльзовать
--Переписать по возможности на лямбда
-
-
 
 Не делать сильно сложно
 написать что это минимально жизнеспособный продукт MVP
@@ -22,12 +22,22 @@ td
 
 Опубликовать в гугл и гитхаб
 
+Во вторую очередь:
+-В заголовке программмы имя пользователя
+-Переписать по возможности на лямбда
+-Сделать кнопку назад, переход на предыдущий активити
+-Использовать knife
+-Локализация https://habr.com/ru/post/133503/
+
 d
 ---
-Плюс переделать, см. http://developer.alexanderklimov.ru/android/android-support-design.php
-Если нужно показать векторное изображение на версии ниже Android 5.0 Lolipop, в файле build.gradle модуля приложения нужно дописать следующую строку.
-vectorDrawables.useSupportLibrary = true
-commit
+Сменил color, до изменений:
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+</resources>
+Color выбрал на https://www.color-hex.com/color/22b2c4
 commit
 commit
 commit

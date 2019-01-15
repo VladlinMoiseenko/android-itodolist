@@ -9,4 +9,5 @@ public interface MainView {
     void showMessage(String message);
     void displayTasks(TasksModel tasksResponse);
     String getAccessToken();
+
 }

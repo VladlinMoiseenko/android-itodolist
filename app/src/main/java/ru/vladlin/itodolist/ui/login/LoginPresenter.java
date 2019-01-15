@@ -1,7 +1,5 @@
 package ru.vladlin.itodolist.ui.login;
 
-import android.util.Log;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -79,7 +77,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
             public void onError(@NonNull Throwable e) {
                 //e.printStackTrace();
                 loginView.hideProgress();
-                loginView.showMessage("Error retrieving data");
+                loginView.showMessageKey("error_retrieving_data");
             }
 
             @Override
@@ -121,7 +119,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
         };
     }
 
-    public void onDestroy() {
+    public void destroy() {
         loginView = null;
         getObserverAuthorize().dispose();
         getObserverToken().dispose();
