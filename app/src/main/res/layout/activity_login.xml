@@ -34,13 +34,6 @@
         android:layout_height="wrap_content"
         android:text="@string/log_in" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="66dp"
-        android:background="@android:color/background_light"
-        android:outlineAmbientShadowColor="@color/colorPrimary" />
-
     <Button
         android:id="@+id/btn_registration"
         android:layout_width="match_parent"

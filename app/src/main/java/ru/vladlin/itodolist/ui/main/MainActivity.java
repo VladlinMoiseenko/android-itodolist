@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import ru.vladlin.itodolist.R;
 import ru.vladlin.itodolist.adapters.TasksAdapter;
@@ -27,7 +23,6 @@ import ru.vladlin.itodolist.ui.task.TaskActivity;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
-    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
 
@@ -39,8 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(this);
-
+        recyclerView = findViewById(R.id.recyclerView);
         progressBar = findViewById(R.id.progress);
         presenter = new MainPresenter(this);
 
