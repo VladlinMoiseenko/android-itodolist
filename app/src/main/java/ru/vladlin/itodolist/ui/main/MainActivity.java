@@ -98,17 +98,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void displayTasks(TasksModel tasksResponse) {
         if(tasksResponse!=null) {
             adapter = new TasksAdapter(tasksResponse.getData(), ru.vladlin.itodolist.ui.main.MainActivity.this, this::onItemClicked);
             recyclerView.setAdapter(adapter);
         }else{
-            showMessage(getString(R.string.data_response_null));
+            showToast(getString(R.string.data_response_null));
         }
     }
 
@@ -152,6 +147,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public String getAccessToken() {
         SharedPreferences mSettings = getSharedPreferences("mainSettings", Context.MODE_PRIVATE);
         return mSettings.getString("AccessToken", "");
+    }
+
+    @Override
+    public void showToast(String key) {
+        int strId = getResources().getIdentifier(key, "string", getPackageName());
+        Toast.makeText(this, getString(strId), Toast.LENGTH_LONG).show();
     }
 
 }

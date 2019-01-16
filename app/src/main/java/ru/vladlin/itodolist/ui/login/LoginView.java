@@ -9,7 +9,6 @@ public interface LoginView {
     void navigateToMain();
     void navigateToRegistration();
     void saveAccessToken(String accessToken);
-    void showMessage(String message);
-    void showMessageKey(String key);
+    void showToast(String key);
 
 }

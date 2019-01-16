@@ -84,7 +84,7 @@ public class RegistrationPresenter implements RegistrationInteractor.OnLoginFini
             public void onError(@NonNull Throwable e) {
                 //e.printStackTrace();
                 registrationView.hideProgress();
-                registrationView.showMessage("Error retrieving data");
+                registrationView.showToast("error_retrieving_data");
             }
             @Override
             public void onComplete() {
@@ -117,7 +117,7 @@ public class RegistrationPresenter implements RegistrationInteractor.OnLoginFini
             public void onError(@NonNull Throwable e) {
                 //e.printStackTrace();
                 registrationView.hideProgress();
-                registrationView.showMessage("Error retrieving data");
+                registrationView.showToast("error_retrieving_data");
             }
             @Override
             public void onComplete() {

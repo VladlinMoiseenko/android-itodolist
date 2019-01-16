@@ -40,10 +40,8 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
         if (taskView != null) {
 
             if (taskView.getIdTask() == null) {
-                taskView.showMessage("NEW getIdTask:" + taskView.getIdTask());
                 getObservableSave(task_title, task_content).subscribeWith(getObserverSave());
             } else {
-                taskView.showMessage("UPD getIdTask:" + taskView.getIdTask());
                 getObservableUpdate(taskView.getIdTask(), task_title, task_content).subscribeWith(getObserverSave());
             }
         }
@@ -71,17 +69,15 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
         return new DisposableObserver<Task>() {
             @Override
             public void onNext(@NonNull Task response) {
-                //taskView.showMessage("");
             }
             @Override
             public void onError(@NonNull Throwable e) {
                 //e.printStackTrace();
                 taskView.hideProgress();
-                taskView.showMessage("Error retrieving data");
+                taskView.showToast("error_retrieving_data");
             }
             @Override
             public void onComplete() {
-                ///taskView.hideProgress();
                 taskView.navigateToMain();
             }
         };

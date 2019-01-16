@@ -9,6 +9,6 @@ public interface RegistrationView {
     void setEmailError();
     void navigateToMain();
     void saveAccessToken(String accessToken);
-    void showMessage(String message);
+    void showToast(String key);
 
 }

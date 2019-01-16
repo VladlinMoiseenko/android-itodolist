@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     protected void onDestroy() {
-        presenter.destroy();
+        presenter.onDestroy();
         super.onDestroy();
     }
 
@@ -104,14 +104,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showMessageKey(String key) {
+    public void showToast(String key) {
         int strId = getResources().getIdentifier(key, "string", getPackageName());
-        showMessage(getString(strId));
+        Toast.makeText(this, getString(strId), Toast.LENGTH_LONG).show();
     }
 
 }

@@ -77,7 +77,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
             public void onError(@NonNull Throwable e) {
                 //e.printStackTrace();
                 loginView.hideProgress();
-                loginView.showMessageKey("error_retrieving_data");
+                loginView.showToast("error_retrieving_data");
             }
 
             @Override
@@ -119,7 +119,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
         };
     }
 
-    public void destroy() {
+    public void onDestroy() {
         loginView = null;
         getObserverAuthorize().dispose();
         getObserverToken().dispose();

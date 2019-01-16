@@ -6,7 +6,7 @@ public interface MainView {
 
     void showProgress();
     void hideProgress();
-    void showMessage(String message);
+    void showToast(String key);
     void displayTasks(TasksModel tasksResponse);
     String getAccessToken();
 

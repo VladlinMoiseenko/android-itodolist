@@ -60,11 +60,6 @@ public class TaskActivity extends AppCompatActivity  implements TaskView{
     }
 
     @Override
-    public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void navigateToMain() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
@@ -85,6 +80,12 @@ public class TaskActivity extends AppCompatActivity  implements TaskView{
     protected void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public void showToast(String key) {
+        int strId = getResources().getIdentifier(key, "string", getPackageName());
+        Toast.makeText(this, getString(strId), Toast.LENGTH_LONG).show();
     }
 
 }

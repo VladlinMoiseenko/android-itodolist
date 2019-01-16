@@ -1,13 +1,5 @@
 
 
-Все сообщения собрать в string
-логин
-регистрация
-майн
-таск
-
-ИСпользовать Новый метод showMessageKey
-
 td
 ===
 Исправить ошибки:
@@ -31,14 +23,7 @@ td
 
 d
 ---
-Сменил color, до изменений:
-<resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-</resources>
-Color выбрал на https://www.color-hex.com/color/22b2c4
-commit
+Все сообщения собрать в string
 commit
 commit
 commit

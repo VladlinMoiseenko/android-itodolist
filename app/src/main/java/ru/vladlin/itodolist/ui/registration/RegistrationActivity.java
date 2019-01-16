@@ -73,8 +73,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     }
 
     @Override
-    public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    public void showToast(String key) {
+        int strId = getResources().getIdentifier(key, "string", getPackageName());
+        Toast.makeText(this, getString(strId), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -92,5 +93,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         presenter.onDestroy();
         super.onDestroy();
     }
+
+
 
 }

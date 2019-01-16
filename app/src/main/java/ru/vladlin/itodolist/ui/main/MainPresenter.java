@@ -51,7 +51,7 @@ class MainPresenter {
             @Override
             public void onError(@NonNull Throwable e) {
                 //e.printStackTrace();
-                mainView.showMessage("Error retrieving data");
+                mainView.showToast("error_retrieving_data");
             }
 
             @Override
@@ -88,7 +88,7 @@ class MainPresenter {
             @Override
             public void onError(@NonNull Throwable e) {
                 //e.printStackTrace();
-                mainView.showMessage("Error retrieving data");
+                mainView.showToast("error_retrieving_data");
             }
 
             @Override
@@ -117,13 +117,14 @@ class MainPresenter {
 
             @Override
             public void onNext(@NonNull Task taskResponse) {
-                mainView.showMessage(String.format("%s Задача удалена", taskResponse.getStatus()));
+                //mainView.show(String.format("%s Задача удалена", taskResponse.getStatus()));
+                mainView.showToast("task_deleted");
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
                 //e.printStackTrace();
-                mainView.showMessage("Error retrieving data");
+                mainView.showToast("error_retrieving_data");
             }
 
             @Override
