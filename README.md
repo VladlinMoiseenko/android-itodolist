@@ -4,5 +4,7 @@
 
 ## Используются библиотеки:
 
-- retrofit
 - rxjava
+- rxandroid
+- retrofit
+- gson
