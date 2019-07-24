@@ -20,7 +20,7 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
         this.taskInteractor = taskInteractor;
     }
 
-    public void validateTask(String task_title, String task_content) {
+    private void validateTask(String task_title, String task_content) {
         if (taskView != null) {
             taskView.showProgress();
         }
@@ -47,7 +47,7 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
         }
     }
 
-    public Observable<Task> getObservableUpdate(String taskId, String title, String content){
+    private Observable<Task> getObservableUpdate(String taskId, String title, String content){
         TaskModel taskModel = new TaskModel(title, content);
         String accessToken = taskView.getAccessToken();
         return NetClient.getRetrofit().create(NetInterface.class)
@@ -56,7 +56,7 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<Task> getObservableSave(String title, String content){
+    private Observable<Task> getObservableSave(String title, String content){
         TaskModel taskModel = new TaskModel(title, content);
         String mAccessToken = taskView.getAccessToken();
         return NetClient.getRetrofit().create(NetInterface.class)
@@ -65,7 +65,7 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public DisposableObserver<Task> getObserverSave(){
+    private DisposableObserver<Task> getObserverSave(){
         return new DisposableObserver<Task>() {
             @Override
             public void onNext(@NonNull Task response) {
@@ -83,7 +83,7 @@ public class TaskPresenter implements TaskInteractor.OnTaskFinishedListener {
         };
     }
 
-    public void onDestroy() {
+    private void onDestroy() {
         taskView = null;
         getObserverSave().dispose();
     }

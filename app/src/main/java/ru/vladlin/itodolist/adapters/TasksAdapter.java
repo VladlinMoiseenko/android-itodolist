@@ -19,7 +19,6 @@ import ru.vladlin.itodolist.models.TaskModel;
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ApiHolder> {
 
     private List<TaskModel> tasksList;
-
     private Context context;
 
     public TasksAdapter(List<TaskModel> tasksList, Context context, Listener listener) {
